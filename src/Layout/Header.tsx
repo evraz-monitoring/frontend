@@ -1,52 +1,48 @@
 import { Menu } from "@mui/icons-material";
 import {
-    AppBar,
+    AppBar as MuiAppBar,
     Toolbar,
     IconButton,
     Typography,
-    Button,
+    AppBarProps,
+    styled,
     Box,
-    Tab,
-    Tabs,
 } from "@mui/material";
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { ROUTER } from "../router";
-export const Header = () => {
-    // const [value, setValue] = useState(0);
 
-    // const handleChange = (_e, newValue) => {
-    //     setValue(newValue);
-    // };
-    const location = useLocation();
+import logo from "../assets/logo.svg";
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== "open",
+})<AppBarProps & { open: boolean }>(({ theme, open }) => ({
+    transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+}));
+
+export const Header: React.FC<{
+    open: boolean;
+    toggleSidebar: () => void;
+}> = ({ open, toggleSidebar }) => {
     return (
-        <Box width={"100%"}>
-            <AppBar position="static">
-                <Box justifyContent={"center"} display="flex">
-                    <Toolbar>
-                        <Tabs
-                            value={location.pathname}
-                            aria-label="Navigation"
-                            indicatorColor="primary"
-                            textColor="primary"
-                            sx={{ justifyContent: "center" }}
-                        >
-                            <Tab
-                                label="Главная"
-                                value={ROUTER.index}
-                                component={Link}
-                                to={ROUTER.index}
-                            />
-                            <Tab
-                                label="Состояние"
-                                value={ROUTER.condition}
-                                component={Link}
-                                to={ROUTER.condition}
-                            />
-                        </Tabs>
-                    </Toolbar>
+        <AppBar
+            open={open}
+            position="fixed"
+            sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        >
+            <Toolbar>
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={toggleSidebar}
+                    sx={{ mr: 2 }}
+                >
+                    <Menu />
+                </IconButton>
+                <Box mx={4} sx={{ display: "flex", alignItems: "center" }}>
+                    <img src={logo} />
                 </Box>
-            </AppBar>
-        </Box>
+            </Toolbar>
+        </AppBar>
     );
 };

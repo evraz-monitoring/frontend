@@ -17,11 +17,9 @@ export const FrameList = () => {
 
     return (
         <>
-            <Container>
-                <Test />
-                <Test />
-                <Test />
-            </Container>
+            <Test />
+            <Test />
+            <Test />
         </>
     );
 };

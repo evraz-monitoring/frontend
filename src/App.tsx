@@ -10,7 +10,7 @@ function App() {
             <Route path={ROUTER.index} element={<Layout />}>
                 <Route index element={<FrameList />} />
                 <Route
-                    path={ROUTER.condition}
+                    path={ROUTER.trends}
                     element={
                         <>
                             <FrameList />

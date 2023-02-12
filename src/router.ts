@@ -1,4 +1,4 @@
 export const ROUTER = {
     index: "/",
-    condition: "/condition",
+    trends: "/trends",
 };

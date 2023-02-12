@@ -6,16 +6,11 @@ import { FilterContextProvider } from "./context/filterContext";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-
-const darkTheme = createTheme({
-    palette: {
-        mode: "dark",
-    },
-});
+import { theme } from "./theme";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={theme}>
             <CssBaseline />
             <FilterContextProvider>
                 <BrowserRouter>
