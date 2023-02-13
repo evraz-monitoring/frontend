@@ -3,21 +3,14 @@ import { FrameList } from "./pages/FrameList";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import { ROUTER } from "./router";
+import { Page2 } from "./pages/page2";
 
 function App() {
     return (
         <Routes>
             <Route path={ROUTER.index} element={<Layout />}>
                 <Route index element={<FrameList />} />
-                <Route
-                    path={ROUTER.trends}
-                    element={
-                        <>
-                            <FrameList />
-                            <FrameList />
-                        </>
-                    }
-                />
+                <Route path={ROUTER.trends} element={<Page2 />} />
             </Route>
         </Routes>
     );

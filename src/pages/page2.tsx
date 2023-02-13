@@ -7,13 +7,12 @@ import { useAppDispatch, useAppSelector } from "../store";
 import { increment, selectCount } from "../store/slices/counter";
 import { useGetMessagesQuery } from "../store/ws";
 
-export const FrameList = () => {
+export const Page2 = () => {
     const inc = useAppSelector(selectCount);
     const dispatch = useAppDispatch();
     const { isLoading, isSuccess, isError, data, error } =
         useGetMessagesQuery("");
-    useEffect(() => console.log("page1", data), [data]);
-
+    useEffect(() => console.log("page2", data), [data]);
     return (
         <>
             {inc}

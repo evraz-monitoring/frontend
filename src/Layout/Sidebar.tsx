@@ -35,7 +35,6 @@ export const Sidebar: React.FC<{ open: boolean }> = ({ open }) => {
             open={open}
         >
             <DrawerHeader>
-                <Divider />
                 <List component="nav">
                     <Link to={ROUTER.index} style={{ textDecoration: "none" }}>
                         <ListItem disablePadding>
