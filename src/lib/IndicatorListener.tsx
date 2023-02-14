@@ -75,7 +75,14 @@ export class IndicatorListener {
     private static handleOpen() {
         console.log("Ws connection opened");
     }
-    private static handleMessage(ev: MessageEvent<any>) {}
+    private static handleMessage(ev: MessageEvent<any>) {
+        const indicatorState = JSON.parse(ev.data) as IndicatorState;
+        if (this.subsStore[indicatorState.exchausterId]) {
+            this.subsStore[indicatorState.exchausterId].forEach((callback) =>
+                callback(indicatorState)
+            );
+        }
+    }
     private static handleError() {
         console.log("Ws get error");
 
