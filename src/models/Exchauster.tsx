@@ -1,4 +1,5 @@
 type IndicatorKey = "string";
+type IndicatorValueKey = "string";
 
 export enum IndicatorStatus {
     NORMAL,
@@ -8,8 +9,11 @@ export enum IndicatorStatus {
 
 export interface IndicatorState {
     key: IndicatorKey;
-    name: string;
+
+    indicatorValueKey: IndicatorValueKey;
     value: number;
+    date: string;
+
     status: IndicatorStatus;
     exchausterId: string;
 }

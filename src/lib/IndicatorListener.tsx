@@ -1,3 +1,5 @@
+import { Config } from "../config";
+import { createFakeWs } from "../mirage";
 import { IndicatorState } from "../models/Exchauster";
 
 export type ExchausterId = string;
@@ -42,7 +44,7 @@ export class IndicatorListener {
             throw new Error("Ws connection not found");
         }
 
-        this.ws.send(`subcribe-exchauster:${exchausterId}`);
+        this.ws.send(`subscribe-exchauster:${exchausterId}`);
     }
 
     private static stopListenExchausterEvents(exchausterId: string) {
@@ -50,11 +52,11 @@ export class IndicatorListener {
             throw new Error("Ws connection not found");
         }
 
-        this.ws.send(`unsubcribe-exchauster:${exchausterId}`);
+        this.ws.send(`unsubscribe-exchauster:${exchausterId}`);
     }
 
     private static createWsConnection() {
-        this.ws = new WebSocket("ws://localhost");
+        this.ws = new WebSocket("ws://localhost:40510/test");
 
         this.ws.onopen = this.handleOpen.bind(this);
         this.ws.onmessage = this.handleMessage.bind(this);
@@ -76,15 +78,22 @@ export class IndicatorListener {
         console.log("Ws connection opened");
     }
     private static handleMessage(ev: MessageEvent<any>) {
-        const indicatorState = JSON.parse(ev.data) as IndicatorState;
-        if (this.subsStore[indicatorState.exchausterId]) {
-            this.subsStore[indicatorState.exchausterId].forEach((callback) =>
-                callback(indicatorState)
-            );
+        const data = JSON.parse(ev.data) as {
+            type: string;
+            data: any;
+        };
+
+        if (data.type === "indicator-change") {
+            const indicatorState = data.data as IndicatorState;
+            if (this.subsStore[indicatorState.exchausterId]) {
+                this.subsStore[indicatorState.exchausterId].forEach(
+                    (callback) => callback(indicatorState)
+                );
+            }
         }
     }
-    private static handleError() {
-        console.log("Ws get error");
+    private static handleError(e: Event) {
+        console.log("Ws get error", e);
 
         // May be wait some time
         this.reconnect();

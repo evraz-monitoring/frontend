@@ -4,7 +4,10 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import { ROUTER } from "./router";
 import { Page2 } from "./pages/page2";
+import { Config } from "./config";
+import { createFakeWs } from "./mirage";
 
+Config.isFakeWs && createFakeWs();
 function App() {
     return (
         <Routes>
