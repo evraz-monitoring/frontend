@@ -1,6 +1,6 @@
 import { ExchausterMetricsTemplate } from "../models/Exchauster";
 
-export const ConstantSignalMetrics: ExchausterMetricsTemplate = {
+export const ConstantSignalMetrics = {
     // 1 ПС; 2 ПС; 7 ПС; 8 ПС
     p1_temperature_warning_min: 65,
     p2_temperature_warning_min: 65,
@@ -115,10 +115,7 @@ export const ConstantSignalMetrics: ExchausterMetricsTemplate = {
     fr_oil_temperature_temperature_after_warning_max: Infinity,
 };
 
-export const ConstantSignalMetricsByExchausterNumber: Record<
-    number,
-    ExchausterMetricsTemplate
-> = {
+export const ConstantSignalMetricsByExchausterNumber = {
     "1": {
         // Давление масла
         oilsystem_oil_pressure_alarm_min: -Infinity,
