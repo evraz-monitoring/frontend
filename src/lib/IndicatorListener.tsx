@@ -164,7 +164,7 @@ export class ExchaustersInfoListenerV2 {
             throw new Error("Ws connection not found");
         }
 
-        this.ws.send(`subscribe-exchausters`);
+        // this.ws.send(`subscribe-exchausters`);
     }
 
     private static stopListenExchausterEvents() {
@@ -172,7 +172,7 @@ export class ExchaustersInfoListenerV2 {
             throw new Error("Ws connection not found");
         }
 
-        this.ws.send(`unsubscribe-exchausters`);
+        // this.ws.send(`unsubscribe-exchausters`);
     }
 
     private static createWsConnection() {
@@ -180,7 +180,7 @@ export class ExchaustersInfoListenerV2 {
             console.warn("Connection already created");
             return;
         }
-        this.ws = new WebSocket("ws://localhost:40510/test");
+        this.ws = new WebSocket("wss://evraz.rubles.lol/metrics");
 
         this.ws.onopen = this.handleOpen.bind(this);
         this.ws.onmessage = this.handleMessage.bind(this);

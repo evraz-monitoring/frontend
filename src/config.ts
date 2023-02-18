@@ -1,4 +1,4 @@
 export const Config = {
-    isFakeWs: true,
+    isFakeWs: false,
     isFakeApi: true,
 };

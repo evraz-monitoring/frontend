@@ -18,6 +18,8 @@ export const useExchausterIndicator = (
         getExchausterStateByNumber(state, exchausterNumber)
     );
 
+    console.log(state);
+
     React.useEffect(() => {
         dispatch(subscribeForExchaustersState());
 
@@ -27,6 +29,7 @@ export const useExchausterIndicator = (
     }, [dispatch]);
 
     const signalValue = state ? state.metrics[signalKey] : undefined;
+
     const isWarning = React.useMemo(() => {
         if (typeof signalValue !== "number" || !state) return false;
 
