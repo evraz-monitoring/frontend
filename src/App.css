@@ -1,1 +1,19 @@
-.panel-loading { display: none; }
+.MuiGrid2-container::after {
+    content: "";
+    flex: auto;
+}
+@media (min-width: 1200px) {
+    .css-1oqqzyl-MuiContainer-root {
+        max-width: 100% !important;
+    }
+}
+
+@media (min-width: 600px) {
+    .css-1oqqzyl-MuiContainer-root {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    /* .css-1eo9e4t-MuiToolbar-root {
+        min-height: 54px !important;
+    } */
+}

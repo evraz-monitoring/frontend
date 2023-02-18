@@ -52,7 +52,7 @@ export const Sidebar: React.FC<{ open: boolean }> = ({ open }) => {
                             </ListItemButton>
                         </ListItem>
                     </Link>
-                    <Link to={ROUTER.trends} style={{ textDecoration: "none" }}>
+                    <Link to={ROUTER.status} style={{ textDecoration: "none" }}>
                         <ListItem disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>

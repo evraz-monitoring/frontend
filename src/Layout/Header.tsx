@@ -8,12 +8,14 @@ import {
     styled,
     Box,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import logo from "../assets/logo.svg";
+import { Breadcrumbs } from "./Breadcrumbs";
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps & { open: boolean }>(({ theme, open }) => ({
+})<AppBarProps & { open: boolean }>(({ theme }) => ({
     transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -21,16 +23,16 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export const Header: React.FC<{
-    open: boolean;
+    open?: boolean;
     toggleSidebar: () => void;
 }> = ({ open, toggleSidebar }) => {
     return (
         <AppBar
-            open={open}
+            open={!!open}
             position="fixed"
             sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
         >
-            <Toolbar>
+            <Toolbar variant="dense">
                 <IconButton
                     color="inherit"
                     aria-label="open drawer"
@@ -42,6 +44,7 @@ export const Header: React.FC<{
                 <Box mx={4} sx={{ display: "flex", alignItems: "center" }}>
                     <img src={logo} />
                 </Box>
+                <Breadcrumbs />
             </Toolbar>
         </AppBar>
     );
