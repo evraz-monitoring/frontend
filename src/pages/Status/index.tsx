@@ -1,13 +1,14 @@
 import { Button, MenuItem, Select, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { Aglomachine } from "../components/Aglomachine";
+import { Aglomachine } from "../../components/Aglomachine";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { ChartPanel } from "../components/ChartPanel";
+import { ChartPanel } from "../../components/ChartPanel";
 import { DateRangePicker } from "rsuite";
+import { DetailedExchauster } from "./Views/DetailedExchauster";
 
 interface StyledTabsProps {
     children?: React.ReactNode;
@@ -57,7 +58,11 @@ const StyledTab = styled((props: StyledTabProps) => (
         background: "#FAB82E",
     },
 }));
-interface TabPanelProps {
+interface TabPanelProps
+    extends React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLDivElement>,
+        HTMLDivElement
+    > {
     children?: React.ReactNode;
     index: number;
     value: number;
@@ -181,8 +186,17 @@ export const Status = () => {
                     },
                 }}
             >
-                <TabPanel value={value} index={0}>
-                    Мнемосхема
+                <TabPanel
+                    value={value}
+                    index={0}
+                    style={{
+                        display: "flex",
+                        flex: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                >
+                    <DetailedExchauster />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <ChartPanel />
