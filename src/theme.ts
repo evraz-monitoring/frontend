@@ -13,23 +13,22 @@ export const theme = createTheme({
     components: {
         MuiToolbar: {
             styleOverrides: {
-                //FIXME: fix toolbar height
-                root: ({ theme }) => ({
-                    [theme.breakpoints.down("md")]: {
-                        height: "48px",
-                    },
-                }),
+                dense: {
+                    height: "54px",
+                    minHeight: "54px",
+                },
             },
         },
         MuiIconButton: {
             styleOverrides: {
+                colorSecondary: "#FAFAFA",
                 root: {
                     borderRadius: 5,
-                    borderColor: "#ed7817",
-                    backgroundColor: "#ed7817",
+                    borderColor: "#FAB82E",
+                    backgroundColor: "#FAB82E",
                     ":hover": {
-                        borderColor: "#dc7015",
-                        backgroundColor: "#dc7015",
+                        borderColor: "#d39b27",
+                        backgroundColor: "#d39b27",
                     },
                 },
             },

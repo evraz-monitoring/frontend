@@ -1,9 +1,10 @@
 import "./App.css";
-import { FrameList } from "./pages/FrameList";
+import { Main } from "./pages/Main";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import { ROUTER } from "./router";
-import { Page2 } from "./pages/page2";
+import { NotFound } from "./pages/NotFound";
+import { Status } from "./pages/Status";
 import { Config } from "./config";
 import { createFakeWs } from "./mirage/ws";
 import { createFakeApi } from "./mirage";
@@ -15,8 +16,9 @@ function App() {
     return (
         <Routes>
             <Route path={ROUTER.index} element={<Layout />}>
-                <Route index element={<FrameList />} />
-                <Route path={ROUTER.trends} element={<Page2 />} />
+                <Route index element={<Main />} />
+                <Route path={`${ROUTER.status}/:id`} element={<Status />} />
+                <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
     );

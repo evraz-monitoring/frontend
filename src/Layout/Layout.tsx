@@ -16,10 +16,10 @@ const Layout = () => {
     return (
         <>
             <Box sx={{ display: "flex" }}>
-                <Header open={open} toggleSidebar={toggleSidebar} />
-                <Sidebar open={open} />
-                <Main open={open}>
-                    <Toolbar />
+                <Header toggleSidebar={toggleSidebar} />
+                {/* <Sidebar open={open} /> */}
+                <Main>
+                    <Toolbar variant="dense" />
                     <Container>
                         <Outlet />
                     </Container>
