@@ -1,44 +1,21 @@
-type IndicatorKey = "string";
-type IndicatorValueKey = "string";
+import { ConstantSignalMetrics } from "../lib/ConstantSignalMetrics";
+import { Signal } from "../lib/Signals";
 
-export enum IndicatorStatus {
-    NORMAL,
-    UNSTABLE,
-    CRITICAL,
-}
+export type SignalKey =
+    | keyof typeof Signal
+    | keyof typeof ConstantSignalMetrics;
 
-export interface IndicatorState {
-    key: IndicatorKey;
+export type ExchausterMetricsTemplate = {
+    [Key in string]: number;
+};
 
-    indicatorValueKey: IndicatorValueKey;
-    value: number;
-    date: string;
-
-    status: IndicatorStatus;
-    exchausterId: string;
-}
-
-export interface AlgoMachine {
-    id: string;
-    number: string;
-    exchausters: Exchauster;
-}
-
-export interface ExchausterRouterInfo {
-    id: string;
-    number: string;
-    launchDate: string;
-}
+export type ExchausterMetrics = {
+    [Key in SignalKey]: number;
+};
 
 export interface Exchauster {
-    id: string;
-    name: string;
-    rotorInfo: ExchausterRouterInfo;
-}
+    number: number;
+    timestamp: number;
 
-export interface IndicatorHistoricalState {
-    key: IndicatorKey;
-    value: number;
-    date: string;
-    exchausterId: string;
+    metrics: Partial<ExchausterMetrics>;
 }

@@ -1,17 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
-import counter from "./slices/counter";
-import { apiReducer, testMidd } from "./ws";
+import createSagaMiddleware from "redux-saga";
+import { exchausterReducer } from "./store/exchausters";
+import rootSaga from "./saga/root";
+
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
     reducer: {
-        counter: counter,
-        api: apiReducer,
+        exchausters: exchausterReducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(testMidd),
+        getDefaultMiddleware().concat(sagaMiddleware),
 });
+
+sagaMiddleware.run(rootSaga);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

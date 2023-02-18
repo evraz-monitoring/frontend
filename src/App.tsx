@@ -5,9 +5,12 @@ import Layout from "./Layout/Layout";
 import { ROUTER } from "./router";
 import { Page2 } from "./pages/page2";
 import { Config } from "./config";
-import { createFakeWs } from "./mirage";
+import { createFakeWs } from "./mirage/ws";
+import { createFakeApi } from "./mirage";
 
 Config.isFakeWs && createFakeWs();
+Config.isFakeApi && createFakeApi();
+
 function App() {
     return (
         <Routes>

@@ -1,11 +1,11 @@
 import { Config } from "../config";
-import { createFakeWs } from "../mirage";
-import { IndicatorState } from "../models/Exchauster";
+import { createFakeWs } from "../mirage/ws";
+import { ApiExchausterInfo } from "../models/ApiResponse";
 
 export type ExchausterId = string;
-export type Subscription = (indicator: IndicatorState) => void;
+export type Subscription = (info: ApiExchausterInfo) => void;
 
-export class IndicatorListener {
+export class ExchausterInfoListener {
     private static ws: WebSocket | undefined = undefined;
     private static subsStore: Record<ExchausterId, Subscription[]> = {};
 
@@ -78,19 +78,15 @@ export class IndicatorListener {
         console.log("Ws connection opened");
     }
     private static handleMessage(ev: MessageEvent<any>) {
-        const data = JSON.parse(ev.data) as {
-            type: string;
-            data: any;
-        };
+        const data = JSON.parse(ev.data) as ApiExchausterInfo[];
 
-        if (data.type === "indicator-change") {
-            const indicatorState = data.data as IndicatorState;
-            if (this.subsStore[indicatorState.exchausterId]) {
-                this.subsStore[indicatorState.exchausterId].forEach(
-                    (callback) => callback(indicatorState)
+        data.forEach((exchausterInfo) => {
+            if (this.subsStore[exchausterInfo.exchauster]) {
+                this.subsStore[exchausterInfo.exchauster].forEach((callback) =>
+                    callback(exchausterInfo)
                 );
             }
-        }
+        });
     }
     private static handleError(e: Event) {
         console.log("Ws get error", e);
