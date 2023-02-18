@@ -57,7 +57,6 @@ const StyledTab = styled((props: StyledTabProps) => (
         background: "#FAB82E",
     },
 }));
-
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
