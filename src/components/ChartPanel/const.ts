@@ -143,11 +143,11 @@ export const listItems = [
         data: [
             {
                 name: "Уровень масла, %",
-                key: "temperature_oil_level",
+                key: "oilsystem_oil_level",
             },
             {
                 name: "Давление масла, кг/см²",
-                key: "temperature_oil_pressure",
+                key: "oilsystem_oil_pressure",
             },
         ],
     },

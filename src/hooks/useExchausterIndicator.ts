@@ -18,8 +18,6 @@ export const useExchausterIndicator = (
         getExchausterStateByNumber(state, exchausterNumber)
     );
 
-    console.log(state);
-
     React.useEffect(() => {
         dispatch(subscribeForExchaustersState());
 

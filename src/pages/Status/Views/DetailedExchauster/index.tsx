@@ -3,8 +3,12 @@ import { useParams } from "react-router-dom";
 import { BackgroundImage } from "./BacgroundImage";
 import { FreezerView } from "./Freezer";
 import { FreezerTemperature } from "./FreezerTemperature";
+import { GasCollector } from "./GasCollector";
 import { MainDrive } from "./MainDrive";
 import { MetricsView } from "./MetricsView";
+import { OilPressure } from "./OilPressure";
+import { OilSystem } from "./OilSystem";
+import { SmokeGate } from "./SmokeGate";
 
 export const DetailedExchauster = () => {
     const { id } = useParams();
@@ -134,6 +138,22 @@ export const DetailedExchauster = () => {
                     exchauster={+id}
                     signalKey="fr_oil_temperature_temperature_after"
                 />
+            </AbsoluteBox>
+
+            <AbsoluteBox top={48} left={517}>
+                <OilSystem exchauster={+id} />
+            </AbsoluteBox>
+
+            <AbsoluteBox top={179} left={74}>
+                <GasCollector />
+            </AbsoluteBox>
+
+            <AbsoluteBox top={220} left={1000}>
+                <OilPressure exchauster={+id} />
+            </AbsoluteBox>
+
+            <AbsoluteBox top={659} left={154 - 38}>
+                <SmokeGate exchauster={+id} />
             </AbsoluteBox>
         </Box>
     );

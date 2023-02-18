@@ -13,7 +13,6 @@ export const MetricsView: React.FC<MetricsViewProps> = ({
     indicators,
 }) => {
     const { id } = useParams();
-    console.log(id);
 
     if (typeof id !== "string") {
         return null;

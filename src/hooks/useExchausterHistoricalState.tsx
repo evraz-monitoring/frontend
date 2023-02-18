@@ -27,15 +27,15 @@ export const useExchausterHistoricalState = (exchauster: number) => {
 
             Object.keys(ConstantSignalMetrics).forEach((key) => {
                 fullInfo[key] =
-                    fullInfo[key] ?? (ConstantSignalMetrics as any)[key];
+                    (ConstantSignalMetrics as any)[key] ?? fullInfo[key];
             });
 
             Object.keys(
                 (ConstantSignalMetricsByExchausterNumber as any)[exchauster]
             ).forEach((key) => {
                 fullInfo[key] =
-                    fullInfo[key] ??
-                    (ConstantSignalMetricsByExchausterNumber as any)[key];
+                    (ConstantSignalMetricsByExchausterNumber as any)[key] ??
+                    fullInfo[key];
             });
 
             res[+timestamp] = fullInfo;
