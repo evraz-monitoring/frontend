@@ -1,4 +1,9 @@
-import { Exchauster } from "../../../models/Exchauster";
+import {
+    Exchauster,
+    ExchausterHistoryTimeInterval,
+    HistoricalExchausterInfo,
+    SignalKey,
+} from "../../../models/Exchauster";
 import { actionCreator } from "../../utils";
 
 const createAction = actionCreator("exchausters");
@@ -23,4 +28,41 @@ export const subscribeForExchaustersState = createAction(
 );
 export const unsubscribeForExchaustersState = createAction(
     "unsubscribe for exchausters state"
+);
+
+interface GetHistoricalExchausterStateParams {
+    exchauster: number;
+
+    fromDate: number;
+    limit: number;
+
+    signalsKeys: SignalKey[];
+}
+export const getHistoricalExchausterState = createAction(
+    "get historical exchausters state",
+    (params: GetHistoricalExchausterStateParams) => ({ payload: { params } })
+);
+
+interface GetHistoricalExchausterStateSuccessParams
+    extends GetHistoricalExchausterStateParams {
+    historyData: HistoricalExchausterInfo;
+}
+
+export const getHistoricalExchausterStateSuccess = createAction(
+    "get historical exchausters state success",
+    (params: GetHistoricalExchausterStateSuccessParams) => ({
+        payload: { params },
+    })
+);
+
+interface GetHistoricalExchausterStateFailedParams
+    extends GetHistoricalExchausterStateParams {
+    error: Error;
+}
+
+export const getHistoricalExchausterStateFailed = createAction(
+    "get historical exchausters state failed",
+    (params: GetHistoricalExchausterStateFailedParams) => ({
+        payload: { params },
+    })
 );

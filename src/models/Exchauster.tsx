@@ -19,3 +19,13 @@ export interface Exchauster {
 
     metrics: Partial<ExchausterMetrics>;
 }
+
+export type HistoricalExchausterInfo = {
+    [Key in number]: Partial<ExchausterMetrics>;
+};
+
+export enum ExchausterHistoryTimeInterval {
+    FIVE_MIN = "5min",
+    FIFTEEN_MIN = "15min",
+    ONE_HOUR = "1hour",
+}

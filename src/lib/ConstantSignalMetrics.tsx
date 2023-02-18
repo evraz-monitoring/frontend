@@ -116,7 +116,7 @@ export const ConstantSignalMetrics = {
 };
 
 export const ConstantSignalMetricsByExchausterNumber = {
-    "1": {
+    1: {
         // Давление масла
         oilsystem_oil_pressure_alarm_min: -Infinity,
         oilsystem_oil_pressure_alarm_max: 0.5,
@@ -125,7 +125,7 @@ export const ConstantSignalMetricsByExchausterNumber = {
         main_drive_rotor_current_warning_min: 250,
         main_drive_rotor_current_warning_max: Infinity,
     },
-    "2": {
+    2: {
         // Давление масла
         oilsystem_oil_pressure_alarm_min: -Infinity,
         oilsystem_oil_pressure_alarm_max: 0.5,
@@ -134,7 +134,7 @@ export const ConstantSignalMetricsByExchausterNumber = {
         main_drive_rotor_current_warning_min: 250,
         main_drive_rotor_current_warning_max: Infinity,
     },
-    "3": {
+    3: {
         // Давление масла
         oilsystem_oil_pressure_alarm_min: -Infinity,
         oilsystem_oil_pressure_alarm_max: 0.2,
@@ -143,7 +143,7 @@ export const ConstantSignalMetricsByExchausterNumber = {
         main_drive_rotor_current_warning_min: 200,
         main_drive_rotor_current_warning_max: Infinity,
     },
-    "4": {
+    4: {
         // Давление масла
         oilsystem_oil_pressure_alarm_min: -Infinity,
         oilsystem_oil_pressure_alarm_max: 0.2,
@@ -152,7 +152,7 @@ export const ConstantSignalMetricsByExchausterNumber = {
         main_drive_rotor_current_warning_min: 200,
         main_drive_rotor_current_warning_max: Infinity,
     },
-    "5": {
+    5: {
         // Давление масла
         oilsystem_oil_pressure_alarm_min: -Infinity,
         oilsystem_oil_pressure_alarm_max: 0.2,
@@ -161,7 +161,7 @@ export const ConstantSignalMetricsByExchausterNumber = {
         main_drive_rotor_current_warning_min: 200,
         main_drive_rotor_current_warning_max: Infinity,
     },
-    "6": {
+    6: {
         // Давление масла
         oilsystem_oil_pressure_alarm_min: -Infinity,
         oilsystem_oil_pressure_alarm_max: 0.2,
