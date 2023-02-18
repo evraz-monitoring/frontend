@@ -10,7 +10,7 @@ import {
     AccordionProps,
     AccordionSummaryProps,
 } from "@mui/material";
-import { getColoredCell } from "../getIcon";
+import { getColoredCell, IconColors, IconLetters } from "../getIcon";
 
 const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -44,7 +44,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 type AccordionParamsProps = {
     title: string;
-    items: { name: string }[];
+    items: { name: string, data: {type: IconLetters, color: IconColors}[] }[];
 };
 
 export const AccordionParams: React.FC<AccordionParamsProps> = ({
@@ -94,9 +94,7 @@ export const AccordionParams: React.FC<AccordionParamsProps> = ({
                                 {item.name}
                             </Typography>
                             <Box display="flex" gap="7px">
-                                {getColoredCell("T", "default")}
-                                {getColoredCell("V", "red")}
-                                {getColoredCell("L", "yellow")}
+                               {item.data.map(({type, color}) => getColoredCell(type, color))}
                             </Box>
                         </Box>
                     ))}

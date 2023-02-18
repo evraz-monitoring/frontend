@@ -123,5 +123,5 @@ export const Signal = {
     main_drive_stator_voltage: "main_drive_stator_voltage",
     oilsystem_oil_level: "oilsystem_oil_level",
     oilsystem_oil_pressure: "oilsystem_oil_pressure",
-    exchauster_work: "exchauster_work",
+    work: "work",
 };

@@ -9,8 +9,10 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import exhausterLogo from "../../assets/exhausterLogo.svg";
 import redDot from "../../assets/redDot.svg";
+import greenDot from "../../assets/greenDot.svg";
 import warning from "../../assets/warning-i.svg";
 import { useExchausterHistoricalState } from "../../hooks/useExchausterHistoricalState";
+import { useExchausterIndicator } from "../../hooks/useExchausterIndicator";
 import {
     getExchaustersState,
     getHistoricalExchausterState,
@@ -26,9 +28,8 @@ type ExhausterType = {
 
 export const Exhauster: React.FC<ExhausterType> = ({ id }) => {
     const dispatch = useDispatch();
-    const { data } = useExchausterHistoricalState(id);
-
-    React.useEffect(() => {
+    const {value} = useExchausterIndicator(id, 'work')
+    useEffect(() => {
         dispatch(subscribeForExchaustersState());
     }, [dispatch]);
 
@@ -42,7 +43,7 @@ export const Exhauster: React.FC<ExhausterType> = ({ id }) => {
                 bgcolor="#6E6E6D"
                 borderRadius="4px 4px 0px 0px"
             >
-                <img src={redDot} />
+                {value ? <img src={greenDot} /> : <img src={redDot} />}
                 <Box flexGrow={1} ml="10px">
                     <Typography color="white">Эксгаустер {id}</Typography>
                 </Box>
@@ -100,7 +101,7 @@ export const Exhauster: React.FC<ExhausterType> = ({ id }) => {
                         <img src={exhausterLogo} />
                     </Link>
 
-                    <Params data={data} />
+                    <Params id={id}/>
                 </Box>
             </Box>
         </Box>

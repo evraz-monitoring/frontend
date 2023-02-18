@@ -9,33 +9,37 @@ import {
     AccordionProps,
     AccordionSummaryProps,
 } from "@mui/material";
-import React from "react";
-import { HistoricalExchausterInfo } from "../../models/Exchauster";
+import React, { useMemo } from "react";
+
 import { AccordionParams } from "./AccordionParams";
+import { useParams } from "./hooks";
 
 type ParamsType = {
-    data: HistoricalExchausterInfo;
+    id: number;
 };
 
-export const Params: React.FC<ParamsType> = ({ data }) => {
+export const Params: React.FC<ParamsType> = ({ id }) => {
+    const { items } = useParams(id);
+    console.log('id',id)
+    const badItems = useMemo(() => {
+        return items.filter((i) =>
+            i.data.some((el) => el.color === "red" || el.color === "yellow")
+        );
+    }, [items]);
+
+    const goodItems = useMemo(() => {
+        return items.filter((i) =>
+            i.data.every((el) => el.color === "default")
+        );
+    }, [items]);
     return (
         <Box>
-            <AccordionParams
-                title="Предупреждение"
-                items={[{ name: "№7  п-к" }, { name: "№8 п-к" }]}
-            />
-            <AccordionParams
-                title="Bce подшипники"
-                items={[
-                    { name: "№1  п-к" },
-                    { name: "№2  п-к" },
-                    { name: "№4  п-к" },
-                    { name: "№5  п-к" },
-                    { name: "№6  п-к" },
-                    { name: "№7  п-к" },
-                    { name: "№9  п-к" },
-                ]}
-            />
+            {!!badItems.length && (
+                <AccordionParams title="Предупреждение" items={badItems} />
+            )}
+            {!!goodItems.length && (
+                <AccordionParams title="Bce подшипники" items={goodItems} />
+            )}
         </Box>
     );
 };

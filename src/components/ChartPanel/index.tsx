@@ -110,7 +110,6 @@ export const ChartPanel = () => {
                     <YAxis />
                     <Tooltip />
                     {checked.map((item) => {
-                        console.log(getColor(item));
                         return (
                             <Line
                                 key={item}

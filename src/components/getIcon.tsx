@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
 
-type IconTypes = "water" | "radio" | "term";
-type IconColors = "black" | "red" | "yellow" | "default";
-type IconLetters = "T" | "V" | "L";
+export type IconTypes = "water" | "radio" | "term";
+export type IconColors = "black" | "red" | "yellow" | "default";
+export type IconLetters = "T" | "V" | "L";
 
-const IconColors = {
+export const IconColors = {
     black: "#000000",
     red: "#E32112",
     yellow: "#F37E0D",
