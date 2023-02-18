@@ -10,9 +10,14 @@ import {
     AccordionSummaryProps,
 } from "@mui/material";
 import React from "react";
+import { HistoricalExchausterInfo } from "../../models/Exchauster";
 import { AccordionParams } from "./AccordionParams";
 
-export const Params = () => {
+type ParamsType = {
+    data: HistoricalExchausterInfo;
+};
+
+export const Params: React.FC<ParamsType> = ({ data }) => {
     return (
         <Box>
             <AccordionParams

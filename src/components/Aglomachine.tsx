@@ -3,7 +3,12 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Exhauster } from "./Exhauster";
 
-export const Aglomachine = ({ id }) => {
+type AglomachineType = {
+    id: string;
+    exhausters: number[];
+};
+
+export const Aglomachine: React.FC<AglomachineType> = ({ id, exhausters }) => {
     return (
         <div>
             <Box borderRadius="4px 4px 0px 0px" bgcolor="#F4F4F4">
@@ -24,8 +29,8 @@ export const Aglomachine = ({ id }) => {
                 mt="10px"
                 gap="10px"
             >
-                <Exhauster id={id} />
-                <Exhauster id={id} />
+                <Exhauster id={exhausters[0]} />
+                <Exhauster id={exhausters[1]} />
             </Box>
         </div>
     );

@@ -1,12 +1,13 @@
-import { Button, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { Button, MenuItem, Select, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { Aglomachine } from "../components/Aglomachine";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { Chart } from "../components/Chart";
+import { ChartPanel } from "../components/ChartPanel";
+import { DateRangePicker } from "rsuite";
 
 interface StyledTabsProps {
     children?: React.ReactNode;
@@ -56,6 +57,7 @@ const StyledTab = styled((props: StyledTabProps) => (
         background: "#FAB82E",
     },
 }));
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -83,7 +85,7 @@ export const Status = () => {
     const [value, setValue] = React.useState(() =>
         params.get("tab") === "chart" ? 1 : 0
     );
-
+    const [mode, setMode] = useState<"period" | "segment">("period");
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
@@ -100,7 +102,54 @@ export const Status = () => {
                 justifyContent={!!value ? "space-between" : "end"}
             >
                 {!!value && (
-                    <Box width="440px" height="36px" bgcolor="#FFFFFF"></Box>
+                    <Box
+                        height="36px"
+                        bgcolor="#FFFFFF"
+                        display="flex"
+                        alignItems="center"
+                        gap="10px"
+                        px="6px"
+                        borderRadius="4px"
+                    >
+                        <Select
+                            sx={{
+                                height: "26px",
+                                p: "0",
+                                bgcolor: "#FAB82E",
+                                "& fieldset": {
+                                    border: "unset",
+                                },
+                            }}
+                            value={mode}
+                            onChange={({ target }) =>
+                                setMode(target.value as "period" | "segment")
+                            }
+                        >
+                            <MenuItem value={"period"}>
+                                Временной диапозон
+                            </MenuItem>
+                            <MenuItem value={"segment"}>
+                                Отрезок времени
+                            </MenuItem>
+                        </Select>
+
+                        <DateRangePicker
+                            className="datePicker"
+                            style={{
+                                borderRadius: "4px",
+                            }}
+                            format="yyyy-MM-dd HH:mm:ss"
+                            defaultValue={[
+                                new Date(Date.now() - 3600000),
+                                new Date(Date.now()),
+                            ]}
+                            onChange={console.log}
+                            defaultCalendarValue={[
+                                new Date("2022-02-01 00:00:00"),
+                                new Date("2022-05-01 23:59:59"),
+                            ]}
+                        />
+                    </Box>
                 )}
                 <StyledTabs
                     sx={{
@@ -127,12 +176,17 @@ export const Status = () => {
                 p="20px"
                 width="100%"
                 height="750px"
+                sx={{
+                    "&>div": {
+                        width: "100%",
+                    },
+                }}
             >
                 <TabPanel value={value} index={0}>
-                    <Chart />
+                    Мнемосхема
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <Chart />
+                    <ChartPanel />
                 </TabPanel>
             </Box>
         </Box>

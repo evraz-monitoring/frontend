@@ -17,3 +17,33 @@
         min-height: 54px !important;
     } */
 }
+
+.datePicker span {
+    color: #000000 !important;
+}
+.datePicker.rs-picker-has-value.rs-picker-cleanable .rs-picker-toggle.rs-btn {
+    background-color: #fab82e !important;
+    padding-top: 1.5px;
+    padding-bottom: 1.5px;
+}
+
+.datePicker.rs-picker-has-value.rs-picker-cleanable
+    .rs-picker-toggle.rs-btn:hover {
+    border: 1px solid #fab82e;
+}
+.datePicker.rs-picker-daterange
+    .rs-picker-toggle.rs-btn
+    .rs-picker-toggle-clean {
+    top: 1px;
+}
+.datePicker.rs-picker-default:not(.rs-picker-disabled)
+    .rs-picker-toggle-active {
+    border-color: #fab82e !important;
+    box-shadow: unset !important;
+}
+.datePicker .rs-picker-toggle-textbox {
+    background-color: #fab82e !important;
+}
+.datePicker input {
+    transition: 0.3s ease background-color;
+}

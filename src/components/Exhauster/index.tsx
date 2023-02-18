@@ -4,20 +4,34 @@ import {
     ArrowRightSharp,
 } from "@mui/icons-material";
 import { Box, Divider, Grid, IconButton, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import exhausterLogo from "../../assets/exhausterLogo.svg";
 import redDot from "../../assets/redDot.svg";
 import warning from "../../assets/warning-i.svg";
+import { useExchausterHistoricalState } from "../../hooks/useExchausterHistoricalState";
+import {
+    getExchaustersState,
+    getHistoricalExchausterState,
+    subscribeForExchaustersState,
+} from "../../redux/store/exchausters/actions";
 import { ROUTER } from "../../router";
 import { Params } from "./Params";
 import { RotorReplace } from "./RotorReplace";
 
 type ExhausterType = {
-    id?: string;
+    id: number;
 };
 
 export const Exhauster: React.FC<ExhausterType> = ({ id }) => {
+    const dispatch = useDispatch();
+    const { data } = useExchausterHistoricalState(id);
+
+    React.useEffect(() => {
+        dispatch(subscribeForExchaustersState());
+    }, [dispatch]);
+
     return (
         <Box width="100%">
             <Box
@@ -32,7 +46,7 @@ export const Exhauster: React.FC<ExhausterType> = ({ id }) => {
                 <Box flexGrow={1} ml="10px">
                     <Typography color="white">Эксгаустер {id}</Typography>
                 </Box>
-                <Link to={`${ROUTER.status}/${id}`}>
+                <Link to={`${ROUTER.status}/${id}?tab=chart`}>
                     <IconButton
                         sx={{ backgroundColor: "#FAFAFA" }}
                         size="small"
@@ -82,11 +96,11 @@ export const Exhauster: React.FC<ExhausterType> = ({ id }) => {
                 <Box display="flex" flexDirection="column" gap="10px">
                     <RotorReplace />
 
-                    <Link to={`${ROUTER.status}/${id}?tab=chart`}>
+                    <Link to={`${ROUTER.status}/${id}`}>
                         <img src={exhausterLogo} />
                     </Link>
 
-                    <Params />
+                    <Params data={data} />
                 </Box>
             </Box>
         </Box>

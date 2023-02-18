@@ -13,7 +13,7 @@ export const DATA = [
     },
     {
         name: "Page C",
-        uv: 2000,
+        uv: null,
         pv: 9800,
         amt: 2290,
     },

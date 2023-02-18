@@ -8,6 +8,7 @@ import { Status } from "./pages/Status";
 import { Config } from "./config";
 import { createFakeWs, createFakeWsV2 } from "./mirage/ws";
 import { createFakeApi } from "./mirage";
+import "rsuite/styles/index.less"; // or 'rsuite/dist/rsuite.min.css'
 
 Config.isFakeWs && createFakeWsV2();
 Config.isFakeApi && createFakeApi();

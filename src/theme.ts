@@ -7,10 +7,19 @@ export const theme = createTheme({
             main: "#FFF",
         },
         secondary: {
-            main: "#ed7817",
+            main: "#FAB82E",
         },
     },
     components: {
+        MuiListItemButton: {
+            styleOverrides: {
+                root: {
+                    height: "40px",
+                    background: "#FAFAFA",
+                    border: "1px solid #EFEFEF",
+                },
+            },
+        },
         MuiToolbar: {
             styleOverrides: {
                 dense: {
