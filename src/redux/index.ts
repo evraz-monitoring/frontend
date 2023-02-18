@@ -4,6 +4,7 @@ import type { TypedUseSelectorHook } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 import { exchausterReducer } from "./store/exchausters";
 import rootSaga from "./saga/root";
+import { exchaustersMiddleware } from "./middlewares/exchausters";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -12,7 +13,9 @@ export const store = configureStore({
         exchausters: exchausterReducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(sagaMiddleware),
+        getDefaultMiddleware()
+            .concat(sagaMiddleware)
+            .concat(exchaustersMiddleware),
 });
 
 sagaMiddleware.run(rootSaga);

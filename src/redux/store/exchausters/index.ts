@@ -4,6 +4,7 @@ import {
     getExchaustersState,
     getExchaustersStateFailed,
     getExchaustersStateSuccess,
+    setExchaustersState,
 } from "./actions";
 
 const initialState = {
@@ -22,5 +23,9 @@ export const exchausterReducer = createReducer(initialState, (builder) => {
 
     builder.addCase(getExchaustersStateFailed, (state, action) => {
         state.isLoadingExchaustersState = false;
+    });
+
+    builder.addCase(setExchaustersState, (state, action) => {
+        state.exchaustersState = action.payload.state;
     });
 });

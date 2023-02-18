@@ -1,5 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
 import { SignalKey } from "../models/Exchauster";
+import {
+    subscribeForExchaustersState,
+    unsubscribeForExchaustersState,
+} from "../redux/store/exchausters/actions";
 import { getExchausterStateByNumber } from "../redux/store/exchausters/selectors";
 import { useAppSelector } from "../redux/utils";
 
@@ -7,14 +13,22 @@ export const useExchausterIndicator = (
     exchausterNumber: number,
     signalKey: SignalKey
 ) => {
+    const dispatch = useDispatch();
     const state = useAppSelector((state) =>
         getExchausterStateByNumber(state, exchausterNumber)
     );
 
-    const signalValue = state.metrics[signalKey];
+    React.useEffect(() => {
+        dispatch(subscribeForExchaustersState());
 
+        return () => {
+            dispatch(unsubscribeForExchaustersState());
+        };
+    }, [dispatch]);
+
+    const signalValue = state ? state.metrics[signalKey] : undefined;
     const isWarning = React.useMemo(() => {
-        if (typeof signalValue !== "number") return false;
+        if (typeof signalValue !== "number" || !state) return false;
 
         const signalMinWarningValue = (state.metrics as any)[
             signalKey + "_warning_min"
@@ -35,7 +49,7 @@ export const useExchausterIndicator = (
     }, [signalValue, signalKey, state]);
 
     const isError = React.useMemo(() => {
-        if (typeof signalValue !== "number") return false;
+        if (typeof signalValue !== "number" || !state) return false;
 
         const signalMinAlarmValue = (state.metrics as any)[
             signalKey + "_alarm_min"

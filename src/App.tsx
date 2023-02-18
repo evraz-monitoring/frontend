@@ -6,10 +6,10 @@ import { ROUTER } from "./router";
 import { NotFound } from "./pages/NotFound";
 import { Status } from "./pages/Status";
 import { Config } from "./config";
-import { createFakeWs } from "./mirage/ws";
+import { createFakeWs, createFakeWsV2 } from "./mirage/ws";
 import { createFakeApi } from "./mirage";
 
-Config.isFakeWs && createFakeWs();
+Config.isFakeWs && createFakeWsV2();
 Config.isFakeApi && createFakeApi();
 
 function App() {

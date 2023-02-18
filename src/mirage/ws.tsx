@@ -1,5 +1,16 @@
 import { WebSocket, Server as WSServer, Client } from "mock-socket";
 import { delay } from "../lib/Common";
+import {
+    wsData1,
+    wsData2,
+    wsData3,
+    wsData4,
+    wsData5,
+    wsData6,
+    wsData7,
+    wsData8,
+    wsData9,
+} from "./data";
 
 export const createFakeWs = () => {
     window.WebSocket = WebSocket; // Here we stub out the window object
@@ -16,7 +27,7 @@ export const createFakeWs = () => {
         client.on("message", (msg) => {
             if (typeof msg !== "string") return;
 
-            if (msg.startsWith("subscribe-exchauster:")) {
+            if (msg.startsWith("subscribe-exchausters")) {
                 const [_, exchausterId] = msg.split(":");
                 clientConnection.subscribe(exchausterId, (indicatorState) => {
                     client.send(
@@ -40,6 +51,58 @@ export const createFakeWs = () => {
             connections = connections.filter(
                 (connection) => connection !== clientConnection
             );
+        });
+    });
+
+    return mockServer;
+};
+
+const fakeWsData = [
+    wsData1,
+    wsData2,
+    wsData3,
+    wsData4,
+    wsData5,
+    wsData6,
+    wsData7,
+    wsData8,
+    wsData9,
+];
+
+export const createFakeWsV2 = () => {
+    window.WebSocket = WebSocket; // Here we stub out the window object
+
+    const mockServer = new WSServer("ws://localhost:40510/test");
+    mockServer.mockWebsocket();
+
+    mockServer.on("connection", (client) => {
+        let i = 0;
+        let intervalId: number | undefined = undefined;
+        client.on("message", (msg) => {
+            if (typeof msg !== "string") return;
+
+            if (msg.startsWith("subscribe-exchausters")) {
+                intervalId = setInterval(() => {
+                    const timestamp = Date.now();
+                    client.send(
+                        JSON.stringify(
+                            fakeWsData[i % 9].map((item) => ({
+                                ...item,
+                                ts: timestamp,
+                            }))
+                        )
+                    );
+                    i++;
+                }, 5000);
+            }
+        });
+
+        client.on("error", () => {
+            client.close();
+        });
+
+        client.on("close", () => {
+            clearInterval(intervalId);
         });
     });
 

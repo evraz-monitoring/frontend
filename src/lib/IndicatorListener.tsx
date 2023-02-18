@@ -132,3 +132,115 @@ interface IndicatorListnerUnsubscribeParams {
     exchausterId: string;
     subscription: Subscription;
 }
+
+export class ExchaustersInfoListenerV2 {
+    static ws: WebSocket | undefined;
+    static isListening: boolean = false;
+
+    static instance = Date.now();
+
+    static sub: ((info: ApiExchausterInfo[]) => void) | undefined;
+
+    static subscribe(cb: (info: ApiExchausterInfo[]) => void) {
+        this.instance = Date.now();
+
+        this.isListening = true;
+        this.sub = cb;
+
+        this.createWsConnection();
+        this.startListenExchausterEvents();
+    }
+
+    static unsubscribe() {
+        this.isListening = false;
+        delete this.sub;
+
+        this.stopListenExchausterEvents();
+        this.closeConnectionIfZeroSubs();
+    }
+
+    private static startListenExchausterEvents() {
+        if (!this.ws) {
+            throw new Error("Ws connection not found");
+        }
+
+        this.ws.send(`subscribe-exchausters`);
+    }
+
+    private static stopListenExchausterEvents() {
+        if (!this.ws) {
+            throw new Error("Ws connection not found");
+        }
+
+        this.ws.send(`unsubscribe-exchausters`);
+    }
+
+    private static createWsConnection() {
+        if (this.ws) {
+            console.warn("Connection already created");
+            return;
+        }
+        this.ws = new WebSocket("ws://localhost:40510/test");
+
+        this.ws.onopen = this.handleOpen.bind(this);
+        this.ws.onmessage = this.handleMessage.bind(this);
+        this.ws.onerror = this.handleError.bind(this);
+        this.ws.onclose = this.handleClose.bind(this);
+    }
+
+    private static closeWsConnection() {
+        if (!this.ws) {
+            console.warn("Ws already closed");
+            return;
+        }
+
+        this.ws.onopen = () => undefined;
+        this.ws.onmessage = () => undefined;
+        this.ws.onerror = () => undefined;
+        this.ws.onopen = () => undefined;
+
+        this.ws.close();
+        delete this.ws;
+    }
+
+    private static handleOpen() {
+        console.log("Ws connection opened");
+    }
+    private static handleMessage(ev: MessageEvent<any>) {
+        const data = JSON.parse(ev.data) as ApiExchausterInfo[];
+        this.sub?.(data);
+    }
+    private static handleError(e: Event) {
+        console.log("Ws get error", e);
+
+        // May be wait some time
+        if (this.isListening) {
+            this.reconnect();
+        }
+    }
+    private static handleClose() {
+        console.log("Ws connection closed");
+    }
+
+    private static reconnect() {
+        const closed = this.closeConnectionIfZeroSubs();
+        if (closed) {
+            console.warn("Not found subs to reconnect");
+            return;
+        }
+
+        this.createWsConnection();
+        this.startListenExchausterEvents();
+    }
+
+    private static closeConnectionIfZeroSubs() {
+        const isZeroSubs = !this.sub;
+
+        if (isZeroSubs) {
+            this.closeWsConnection();
+            return true;
+        }
+
+        return false;
+    }
+}

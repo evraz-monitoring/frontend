@@ -25,7 +25,7 @@ export default function* () {
     yield* takeLeading(getExchaustersState, getExchaustersStateSaga);
 }
 
-function transformGetExchaustersResponse(data: any): Exchauster[] {
+export function transformGetExchaustersResponse(data: any): Exchauster[] {
     if (!Array.isArray(data)) {
         throw new Error("Bad data error!");
     }
