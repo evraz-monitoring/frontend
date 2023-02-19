@@ -15,21 +15,16 @@ export const Main = () => {
         <>
             <Box>
                 <MainLegend />
-                <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    gap="50px"
-                    flexWrap="wrap"
-                >
-                    <Box width="586px">
-                        <Aglomachine id="1" exhausters={[1, 2]} />
-                    </Box>
-                    <Box width="586px">
-                        <Aglomachine id="2" exhausters={[3, 4]} />
-                    </Box>
-                    <Box width="586px">
-                        <Aglomachine id="3" exhausters={[5, 6]} />
-                    </Box>
+                <Box display="flex" gap="50px" flexWrap="wrap">
+                    {/* <Box flex={1}> */}
+                    <Aglomachine id="1" exhausters={[1, 2]} />
+                    {/* </Box> */}
+                    {/* <Box flex={1}> */}
+                    <Aglomachine id="2" exhausters={[3, 4]} />
+                    {/* </Box> */}
+                    {/* <Box flex={1}> */}
+                    <Aglomachine id="3" exhausters={[5, 6]} />
+                    {/* </Box> */}
                 </Box>
             </Box>
         </>

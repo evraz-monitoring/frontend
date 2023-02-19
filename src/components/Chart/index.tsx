@@ -58,16 +58,18 @@ export const Chart: React.FC<ChartProps> = ({ checkedKeys }) => {
             xAxis={{
                 data: xAxis,
                 type: "category",
-                // axisLine: { onZero: false },
             }}
-            yAxis={
-                {
-                    // type: "value",
-                    // axisLine: { onZero: false },
-                }
-            }
+            yAxis={{}}
             tooltip={{
                 trigger: "axis",
+                formatter: (params: {
+                    seriesName: string;
+                    value: number;
+                    name: string;
+                }) => {
+                    console.log(params);
+                    return "hello";
+                },
             }}
             dataZoom={[
                 {
