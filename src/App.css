@@ -3,13 +3,13 @@
     flex: auto;
 }
 @media (min-width: 1200px) {
-    .css-1oqqzyl-MuiContainer-root {
+    .MuiContainer-root {
         max-width: 100% !important;
     }
 }
 
 @media (min-width: 600px) {
-    .css-1oqqzyl-MuiContainer-root {
+    .MuiContainer-root {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
