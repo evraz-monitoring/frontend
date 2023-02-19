@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
+import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import { useExchausterIndicator } from "../../../../hooks/useExchausterIndicator";
 import { SignalKey } from "../../../../models/Exchauster";
@@ -63,23 +64,36 @@ interface MetricItemProps {
 function MetricItem(props: MetricItemProps) {
     const { value } = useExchausterIndicator(props.exchauster, props.signalKey);
     return (
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box>
-                <Typography fontWeight="500" fontSize="12px" color="#000000">
-                    {props.label}
-                </Typography>
-            </Box>
+        <Tooltip
+            title={value && dayjs(value.ts * 1000).format("DD MMM HH:mm")}
+            placement="right"
+        >
             <Box
-                px="6px"
-                py="2px"
-                bgcolor="#414F4F"
-                borderRadius="4px"
-                color="#ffffff"
-                fontSize="12px"
-                fontWeight="500"
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
             >
-                {value?.toFixed(2)}
+                <Box>
+                    <Typography
+                        fontWeight="500"
+                        fontSize="12px"
+                        color="#000000"
+                    >
+                        {props.label}
+                    </Typography>
+                </Box>
+                <Box
+                    px="6px"
+                    py="2px"
+                    bgcolor="#414F4F"
+                    borderRadius="4px"
+                    color="#ffffff"
+                    fontSize="12px"
+                    fontWeight="500"
+                >
+                    {value?.value?.toFixed(2)}
+                </Box>
             </Box>
-        </Box>
+        </Tooltip>
     );
 }

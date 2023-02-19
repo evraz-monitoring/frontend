@@ -1,4 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
+import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import { useExchausterIndicator } from "../../../../hooks/useExchausterIndicator";
 import { SignalKey } from "../../../../models/Exchauster";
@@ -15,8 +16,18 @@ export const FreezerTemperature: React.FC<FreezerTemperatureProps> = ({
     const { value } = useExchausterIndicator(exchauster, signalKey);
 
     return (
-        <Box padding="6px" borderRadius="4px" bgcolor="#414F4F" color="#ffffff">
-            {value?.toFixed(2)} °С
-        </Box>
+        <Tooltip
+            title={value && dayjs(value.ts * 1000).format("DD MMM HH:mm")}
+            placement="top"
+        >
+            <Box
+                padding="6px"
+                borderRadius="4px"
+                bgcolor="#414F4F"
+                color="#ffffff"
+            >
+                {value?.value?.toFixed(2)} °С
+            </Box>
+        </Tooltip>
     );
 };

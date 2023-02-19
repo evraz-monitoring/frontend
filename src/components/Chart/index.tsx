@@ -37,7 +37,6 @@ interface ChartProps {
 export const Chart: React.FC<ChartProps> = ({ checkedKeys }) => {
     const { id } = useParams();
     const { data: _data } = useExchausterHistoricalState(+(id || 0));
-
     const series = React.useMemo(() => {
         return checkedKeys.map((key) => ({
             name: key,
@@ -47,7 +46,7 @@ export const Chart: React.FC<ChartProps> = ({ checkedKeys }) => {
     }, [_data, checkedKeys]);
 
     const xAxis = React.useMemo(
-        () => _data.map((item) => dayjs(item.ts * 1000).format("DD MMM HH:mm")),
+        () => _data.map((item) => item && dayjs(item?.ts * 1000).format("DD MMM HH:mm")),
         [_data]
     );
 

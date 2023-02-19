@@ -1,4 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
+import dayjs from "dayjs";
 import React from "react";
 import { useExchausterIndicator } from "../../../../hooks/useExchausterIndicator";
 
@@ -57,22 +58,31 @@ export const OilSystem: React.FC<OilSystemProps> = ({ exchauster }) => {
                     </React.Fragment>
                 ))}
             </Box>
-
             <Box position="relative">
                 <Box
                     position="absolute"
                     top={0}
                     left={0}
                     height={31}
-                    width={contentWidth / 100 * (value || 1)}
+                    width={(contentWidth / 100) * (value?.value || 1)}
                     bgcolor={contentColor}
                     // zIndex={-1}
                 />
-
-                <Box position="absolute" top={0} left={0}>
-                    <Box ml='15px' fontWeight='500' fontSize='13px' lineHeight='15px'>{value?.toFixed(2)}</Box>
-                    <Box ml='15px' fontWeight='375' fontSize='10px'>УРОВЕНЬ МАСЛА, %</Box>
-                </Box>
+                <Tooltip title={value && dayjs(value.ts * 1000).format("DD MMM HH:mm")}>
+                    <Box position="absolute" top={0} left={0}>
+                        <Box
+                            ml="15px"
+                            fontWeight="500"
+                            fontSize="13px"
+                            lineHeight="15px"
+                        >
+                            {value?.value?.toFixed(2)}
+                        </Box>
+                        <Box ml="15px" fontWeight="375" fontSize="10px">
+                            УРОВЕНЬ МАСЛА, %
+                        </Box>
+                    </Box>
+                </Tooltip>
             </Box>
         </Box>
     );

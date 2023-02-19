@@ -11,7 +11,7 @@ export const getExchausterStateByNumber = createSelector(
     getExchaustersState,
     (state: RootState, number: number | undefined) => number,
     (exchausters, number) =>
-        typeof number === "number" ? exchausters[number] : undefined
+        typeof number === "number" ? exchausters[number - 1] : undefined
 );
 
 export const getExchausterHistoricalState = createSelector(

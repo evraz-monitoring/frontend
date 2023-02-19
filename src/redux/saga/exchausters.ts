@@ -1,6 +1,6 @@
 import { all, call, put, takeEvery, takeLeading } from "typed-redux-saga";
 import { requestApi } from "../../lib/Api";
-import { Exchauster, HistoricalExchausterInfo } from "../../models/Exchauster";
+import { Exchauster, ExchausterMetrics, HistoricalExchausterInfo } from "../../models/Exchauster";
 import dayjs from "dayjs";
 import {
     getExchaustersState,
@@ -70,14 +70,16 @@ export default function* () {
 }
 
 export function transformGetExchaustersResponse(data: any): Exchauster[] {
-    if (!Array.isArray(data)) {
-        throw new Error("Bad data error!");
-    }
-
-    return data.map((item) => {
-        const { exchauster, ts, ...metrics } = item;
-        return { number: exchauster, timestamp: ts, metrics };
-    });
+    // if (!Array.isArray(data)) {
+    //     throw new Error("Bad data error!");
+    // }
+    return Object.entries(data).map(([key, val]) =>({
+        number: Number.parseInt(key), metrics: val as ExchausterMetrics
+    }))
+    // return data.map((item) => {
+    //     const { exchauster, ts, ...metrics } = item;
+    //     return { number: exchauster, timestamp: ts, metrics };
+    // });
 }
 
 export function transformHistoricalExchausterResponse(

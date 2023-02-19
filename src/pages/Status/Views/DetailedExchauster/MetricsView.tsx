@@ -1,4 +1,6 @@
+import { Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
+import dayjs from "dayjs";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useExchausterIndicator } from "../../../../hooks/useExchausterIndicator";
@@ -62,24 +64,32 @@ function MetricViewIndicator(props: MetricViewIndicatorProps) {
         props.exchauster,
         props.signalKey
     );
-
     const containerColor = isError
         ? errorColor
         : isWarning
         ? warningColor
         : undefined;
     return (
-        <Box
-            display="flex"
-            justifyContent="space-between"
-            borderRadius="4px"
-            paddingY="2px"
-            paddingX="5px"
-            bgcolor={containerColor}
+        <Tooltip
+            title={value && dayjs(value.ts * 1000).format("DD MMM HH:mm")}
+            placement="right"
         >
-            <Box color={"#ffffff"} fontSize='13px' fontWeight='375'>{props.label}</Box>
-            <Box color={"#ffffff"} fontSize='13px' fontWeight='500'>{value?.toFixed(2)}</Box>
-        </Box>
+            <Box
+                display="flex"
+                justifyContent="space-between"
+                borderRadius="4px"
+                paddingY="2px"
+                paddingX="5px"
+                bgcolor={containerColor}
+            >
+                <Box color={"#ffffff"} fontSize="13px" fontWeight="375">
+                    {props.label}
+                </Box>
+                <Box color={"#ffffff"} fontSize="13px" fontWeight="500">
+                    {value?.value?.toFixed(2)}
+                </Box>
+            </Box>
+        </Tooltip>
     );
 }
 
