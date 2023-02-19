@@ -33,7 +33,7 @@ export const useExchausterIndicator = (
     const signalValue = state ? state.metrics[signalKey] : undefined;
 
     const isWarning = React.useMemo(() => {
-        if (typeof signalValue !== "number" || !state) return false;
+        if (!signalValue || !state) return false;
 
         const signalMinWarningValue = {
             ...state.metrics,
@@ -55,14 +55,14 @@ export const useExchausterIndicator = (
             typeof signalMaxWarningValue === "number"
         ) {
             return (
-                signalValue >= signalMinWarningValue &&
-                signalValue < signalMaxWarningValue
+                signalValue.value >= signalMinWarningValue &&
+                signalValue.value < signalMaxWarningValue
             );
         }
     }, [signalValue, signalKey, state]);
 
     const isError = React.useMemo(() => {
-        if (typeof signalValue !== "number" || !state) return false;
+        if (!signalValue || !state) return false;
 
         const signalMinAlarmValue = {
             ...state.metrics,
@@ -84,8 +84,8 @@ export const useExchausterIndicator = (
             typeof signalMaxAlarmValue === "number"
         ) {
             return (
-                signalValue >= signalMinAlarmValue &&
-                signalValue < signalMaxAlarmValue
+                signalValue.value >= signalMinAlarmValue &&
+                signalValue.value < signalMaxAlarmValue
             );
         }
     }, [signalValue, signalKey, state]);

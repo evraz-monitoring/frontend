@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import { useExchausterIndicator } from "../../../../hooks/useExchausterIndicator";
 import { SmokeGateImage } from "./SmokeGateImage";
 
@@ -21,8 +21,8 @@ export const SmokeGate: React.FC<SmokeGateProps> = ({ exchauster }) => {
         "gas_valve_position"
     );
 
-    const isOpened = opened === 1;
-    const isClosed = closed === 1;
+    const isOpened = opened?.value === 1;
+    const isClosed = closed?.value === 1;
 
     const openPercent = position;
 
@@ -37,17 +37,24 @@ export const SmokeGate: React.FC<SmokeGateProps> = ({ exchauster }) => {
                     ? contentSize
                     : isClosed
                     ? 0
-                    : contentSize * (position || 0)
+                    : contentSize * (position?.value || 0)
             }
         >
             <SmokeGateImage />
-            <Box>
-                {isOpened
-                    ? "100%"
-                    : isClosed
-                    ? "0%"
-                    : `${((openPercent || 0) * 100).toFixed(0)}%`}
-            </Box>
+            <Tooltip
+                title={
+                    openPercent &&
+                    new Date(openPercent.ts * 1000).toDateString()
+                }
+            >
+                <Box>
+                    {isOpened
+                        ? "100%"
+                        : isClosed
+                        ? "0%"
+                        : `${((openPercent?.value || 0) * 100).toFixed(0)}%`}
+                </Box>
+            </Tooltip>
         </Box>
     );
 };

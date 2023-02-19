@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Tooltip } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { BackgroundImage } from "./BacgroundImage";
 import { FreezerView } from "./Freezer";
@@ -155,7 +155,7 @@ export const DetailedExchauster = () => {
             <AbsoluteBox top={659} left={154 - 38}>
                 <SmokeGate exchauster={+id} />
             </AbsoluteBox>
-            <AbsoluteBox top={13} left={1200}>
+            <AbsoluteBox top={13} left={1072}>
                 <Box display="flex" gap='15px'>
                     <Box display="flex" alignItems="center" gap="8px">
                         <Box

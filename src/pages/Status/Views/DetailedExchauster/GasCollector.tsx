@@ -1,4 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
+import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import { useExchausterIndicator } from "../../../../hooks/useExchausterIndicator";
 import { SignalKey } from "../../../../models/Exchauster";
@@ -11,7 +12,7 @@ export const GasCollector = () => {
     }
 
     return (
-        <Box width="179px" display='flex' flexDirection='column' gap='3px'>
+        <Box width="179px" display="flex" flexDirection="column" gap="3px">
             <MetricItem
                 exchauster={+id}
                 label="Температура газа, °С"
@@ -35,21 +36,27 @@ interface MetricItemProps {
 function MetricItem(props: MetricItemProps) {
     const { value } = useExchausterIndicator(props.exchauster, props.signalKey);
     return (
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box fontSize="12px" fontWeight="500" color="#ffffff">
-                {props.label}
-            </Box>
+        <Tooltip title={value && dayjs(value.ts * 1000).format("DD MMM HH:mm")} placement='right'>
             <Box
-                paddingX="6px"
-                paddingY="2px"
-                bgcolor="#414F4F"
-                borderRadius="4px"
-                color="#ffffff"
-                fontSize="12px"
-                fontWeight="500"
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
             >
-                {value?.toFixed(2)}
+                <Box fontSize="12px" fontWeight="500" color="#ffffff">
+                    {props.label}
+                </Box>
+                <Box
+                    paddingX="6px"
+                    paddingY="2px"
+                    bgcolor="#414F4F"
+                    borderRadius="4px"
+                    color="#ffffff"
+                    fontSize="12px"
+                    fontWeight="500"
+                >
+                    {value?.value?.toFixed(2)}
+                </Box>
             </Box>
-        </Box>
+        </Tooltip>
     );
 }

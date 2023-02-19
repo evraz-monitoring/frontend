@@ -1,4 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
+import dayjs from "dayjs";
 import React from "react";
 import { useExchausterIndicator } from "../../../../hooks/useExchausterIndicator";
 
@@ -27,7 +28,7 @@ export const OilPressure: React.FC<OilPressureProps> = ({ exchauster }) => {
             padding="6px"
             bgcolor="#E8EAEA"
             border="2px solid #8D9595"
-            borderRadius='2px'
+            borderRadius="2px"
         >
             <Box
                 display="flex"
@@ -46,22 +47,35 @@ export const OilPressure: React.FC<OilPressureProps> = ({ exchauster }) => {
                     </React.Fragment>
                 ))}
             </Box>
+            <Tooltip
+                title={value && dayjs(value.ts * 1000).format("DD MMM HH:mm")}
+                placement="bottom"
+            >
+                <Box position="relative" height="31px">
+                    <Box
+                        position="absolute"
+                        top={0}
+                        left={0}
+                        height={31}
+                        width={5 + (contentWidth * Math.max(value?.value || 0, 0)) / 7}
+                        bgcolor={contentColor}
+                    />
 
-            <Box position="relative" height="31px">
-                <Box
-                    position="absolute"
-                    top={0}
-                    left={0}
-                    height={31}
-                    width={5 + (contentWidth * Math.max(value || 0, 0)) / 7}
-                    bgcolor={contentColor}
-                />
-
-                <Box position="absolute" top={0} left={0}>
-                    <Box ml='15px' fontWeight='500' fontSize='13px' lineHeight='15px'>{value?.toFixed(2)}</Box>
-                    <Box ml='15px' fontWeight='375' fontSize='10px'>ДАВЛЕНИЕ МАСЛА, кг/см²</Box>
+                    <Box position="absolute" top={0} left={0}>
+                        <Box
+                            ml="15px"
+                            fontWeight="500"
+                            fontSize="13px"
+                            lineHeight="15px"
+                        >
+                            {value?.value?.toFixed(2)}
+                        </Box>
+                        <Box ml="15px" fontWeight="375" fontSize="10px">
+                            ДАВЛЕНИЕ МАСЛА, кг/см²
+                        </Box>
+                    </Box>
                 </Box>
-            </Box>
+            </Tooltip>
         </Box>
     );
 };

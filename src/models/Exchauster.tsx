@@ -10,13 +10,11 @@ export type ExchausterMetricsTemplate = {
 };
 
 export type ExchausterMetrics = {
-    [Key in SignalKey]: number;
+    [Key in SignalKey]: {value: number, ts: number};
 };
 
 export interface Exchauster {
     number: number;
-    timestamp: number;
-
     metrics: Partial<ExchausterMetrics>;
 }
 
