@@ -18,7 +18,7 @@ export const Main = () => {
                 <Box
                     display="flex"
                     justifyContent="space-between"
-                    gap="50px"
+                    gap="10px"
                     flexWrap="wrap"
                 >
                     <Box width="586px">
