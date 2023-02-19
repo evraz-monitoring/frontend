@@ -1,6 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { ConstantSignalMetrics } from "../lib/ConstantSignalMetrics";
+import {
+    ConstantSignalMetrics,
+    ConstantSignalMetricsByExchausterNumber,
+} from "../lib/ConstantSignalMetrics";
 
 import { SignalKey } from "../models/Exchauster";
 import {
@@ -32,12 +35,20 @@ export const useExchausterIndicator = (
     const isWarning = React.useMemo(() => {
         if (typeof signalValue !== "number" || !state) return false;
 
-        const signalMinWarningValue = (ConstantSignalMetrics as any)[
-            signalKey + "_warning_min"
-        ];
-        const signalMaxWarningValue = (state.metrics as any)[
-            signalKey + "_warning_max"
-        ];
+        const signalMinWarningValue = {
+            ...state.metrics,
+            ...(ConstantSignalMetrics as any),
+            ...(ConstantSignalMetricsByExchausterNumber as any)[
+                exchausterNumber
+            ],
+        }[signalKey + "_warning_min"];
+        const signalMaxWarningValue = {
+            ...state.metrics,
+            ...(ConstantSignalMetrics as any),
+            ...(ConstantSignalMetricsByExchausterNumber as any)[
+                exchausterNumber
+            ],
+        }[signalKey + "_warning_max"];
 
         if (
             typeof signalMinWarningValue === "number" &&
@@ -53,12 +64,20 @@ export const useExchausterIndicator = (
     const isError = React.useMemo(() => {
         if (typeof signalValue !== "number" || !state) return false;
 
-        const signalMinAlarmValue = (ConstantSignalMetrics as any)[
-            signalKey + "_alarm_min"
-        ];
-        const signalMaxAlarmValue = (state.metrics as any)[
-            signalKey + "_alarm_max"
-        ];  
+        const signalMinAlarmValue = {
+            ...state.metrics,
+            ...(ConstantSignalMetrics as any),
+            ...(ConstantSignalMetricsByExchausterNumber as any)[
+                exchausterNumber
+            ],
+        }[signalKey + "_alarm_min"];
+        const signalMaxAlarmValue = {
+            ...state.metrics,
+            ...(ConstantSignalMetrics as any),
+            ...(ConstantSignalMetricsByExchausterNumber as any)[
+                exchausterNumber
+            ],
+        }[signalKey + "_alarm_max"];
 
         if (
             typeof signalMinAlarmValue === "number" &&
