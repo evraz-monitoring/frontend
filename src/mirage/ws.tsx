@@ -12,6 +12,12 @@ import {
     wsData9,
 } from "./data";
 
+const notificationData = {
+    type: "alert",
+    metric: "p7_vibration_horizontal",
+    exhauster: 2,
+};
+
 export const createFakeWs = () => {
     window.WebSocket = WebSocket; // Here we stub out the window object
 
@@ -30,12 +36,14 @@ export const createFakeWs = () => {
             if (msg.startsWith("subscribe-exchausters")) {
                 const [_, exchausterId] = msg.split(":");
                 clientConnection.subscribe(exchausterId, (indicatorState) => {
-                    client.send(
-                        JSON.stringify({
-                            type: "indicator-change",
-                            data: indicatorState,
-                        })
-                    );
+                    // client.send(
+                    //     JSON.stringify({
+                    //         type: "indicator-change",
+                    //         data: indicatorState,
+                    //     })
+                    // );
+
+                    client.send(notificationData);
                 });
             } else if (msg.startsWith("unsubscribe-exchauster:")) {
                 const [_, exchausterId] = msg.split(":");

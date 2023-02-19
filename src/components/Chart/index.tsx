@@ -48,7 +48,10 @@ export const Chart: React.FC<ChartProps> = ({ checkedKeys }) => {
     }, [_data, checkedKeys]);
 
     const xAxis = React.useMemo(
-        () => _data.map((item) => item && dayjs(item?.ts * 1000).format("DD MMM HH:mm")),
+        () =>
+            _data.map(
+                (item) => item && dayjs(item?.ts * 1000).format("DD MMM HH:mm")
+            ),
         [_data]
     );
 
@@ -68,12 +71,16 @@ export const Chart: React.FC<ChartProps> = ({ checkedKeys }) => {
             tooltip={{
                 trigger: "axis",
                 formatter: (params: any[]) => {
-                    return `${params[0].axisValue}<br />${params.map(
-                        (param) =>
-                            `<br />${
-                                (signalsMapping as any)[id][param.seriesName]
-                            }: ${param.value}`
-                    )}`;
+                    return `${params[0].axisValue}<br />${[...params]
+                        .reverse()
+                        .map(
+                            (param) =>
+                                `<br /><font color="${param.color}">${
+                                    (signalsMapping as any)[id][
+                                        param.seriesName
+                                    ]
+                                }: ${param.value}</font>`
+                        )}`;
                 },
             }}
             dataZoom={[
