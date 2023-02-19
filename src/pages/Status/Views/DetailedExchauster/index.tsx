@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { BackgroundImage } from "./BacgroundImage";
 import { FreezerView } from "./Freezer";
@@ -45,9 +45,9 @@ export const DetailedExchauster = () => {
                     title="7 ПС"
                     indicators={[
                         { key: "p7_temperature", label: "T, °С" },
-                        { key: "p7_vibration_vertical", label: "В, °С" },
-                        { key: "p7_vibration_horizontal", label: "Г, °С" },
-                        { key: "p7_vibration_axial", label: "О, °С" },
+                        { key: "p7_vibration_vertical", label: "В, мм/с" },
+                        { key: "p7_vibration_horizontal", label: "Г, мм/с" },
+                        { key: "p7_vibration_axial", label: "О, мм/с" },
                     ]}
                 />
             </AbsoluteBox>
@@ -71,9 +71,9 @@ export const DetailedExchauster = () => {
                     title="2 ПС"
                     indicators={[
                         { key: "p2_temperature", label: "T, °С" },
-                        { key: "p2_vibration_vertical", label: "В, °С" },
-                        { key: "p2_vibration_horizontal", label: "Г, °С" },
-                        { key: "p2_vibration_axial", label: "О, °С" },
+                        { key: "p2_vibration_vertical", label: "В, мм/с" },
+                        { key: "p2_vibration_horizontal", label: "Г, мм/с" },
+                        { key: "p2_vibration_axial", label: "О, мм/с" },
                     ]}
                 />
             </AbsoluteBox>
@@ -83,9 +83,9 @@ export const DetailedExchauster = () => {
                     title="1 ПС"
                     indicators={[
                         { key: "p1_temperature", label: "T, °С" },
-                        { key: "p1_vibration_vertical", label: "В, °С" },
-                        { key: "p1_vibration_horizontal", label: "Г, °С" },
-                        { key: "p1_vibration_axial", label: "О, °С" },
+                        { key: "p1_vibration_vertical", label: "В, мм/с" },
+                        { key: "p1_vibration_horizontal", label: "Г, мм/с" },
+                        { key: "p1_vibration_axial", label: "О, мм/с" },
                     ]}
                 />
             </AbsoluteBox>
@@ -154,6 +154,32 @@ export const DetailedExchauster = () => {
 
             <AbsoluteBox top={659} left={154 - 38}>
                 <SmokeGate exchauster={+id} />
+            </AbsoluteBox>
+            <AbsoluteBox top={13} left={1200}>
+                <Box display="flex" gap='15px'>
+                    <Box display="flex" alignItems="center" gap="8px">
+                        <Box
+                            bgcolor="#F9A823"
+                            width="12px"
+                            height="12px"
+                            borderRadius="2px"
+                        ></Box>
+                        <Typography fontSize="13px" fontWeight="300">
+                            Предупреждение
+                        </Typography>
+                    </Box>
+                    <Box display="flex" alignItems="center" gap="8px">
+                        <Box
+                            bgcolor="#E32112"
+                            width="12px"
+                            height="12px"
+                            borderRadius="2px"
+                        ></Box>
+                        <Typography fontSize="13px" fontWeight="300">
+                            Опасность
+                        </Typography>
+                    </Box>
+                </Box>
             </AbsoluteBox>
         </Box>
     );
