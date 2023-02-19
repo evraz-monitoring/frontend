@@ -19,6 +19,8 @@ import { SignalKey } from "../../models/Exchauster";
 import { useDispatch } from "react-redux";
 import { getHistoricalExchausterState } from "../../redux/store/exchausters/actions";
 import dayjs from "dayjs";
+import { Box } from "@mui/material";
+import { signalsMapping } from "../../lib/SignalsNames";
 
 const symbolSize = 20;
 const data = [
@@ -50,9 +52,13 @@ export const Chart: React.FC<ChartProps> = ({ checkedKeys }) => {
         [_data]
     );
 
+    if (!id) {
+        return null;
+    }
+
     return (
         <EChart
-            style={{ height: "700px", width: '1430px' }}
+            style={{ height: "700px", width: "1430px" }}
             grid={{}}
             xAxis={{
                 data: xAxis,
@@ -61,13 +67,13 @@ export const Chart: React.FC<ChartProps> = ({ checkedKeys }) => {
             yAxis={{}}
             tooltip={{
                 trigger: "axis",
-                formatter: (params: {
-                    seriesName: string;
-                    value: number;
-                    name: string;
-                }) => {
-                    console.log(params);
-                    return "hello";
+                formatter: (params: any[]) => {
+                    return `${params[0].axisValue}<br />${params.map(
+                        (param) =>
+                            `<br />${signalsMapping[id][param.seriesName]}: ${
+                                param.value
+                            }`
+                    )}`;
                 },
             }}
             dataZoom={[
