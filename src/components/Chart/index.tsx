@@ -43,6 +43,7 @@ export const Chart: React.FC<ChartProps> = ({ checkedKeys }) => {
         return checkedKeys.map((key) => ({
             name: key,
             type: "line",
+            //@ts-ignore
             data: _data.map((item) => item.data[key]?.toFixed(2)),
         }));
     }, [_data, checkedKeys]);
