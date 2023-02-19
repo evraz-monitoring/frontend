@@ -4,7 +4,7 @@ import { useExchausterIndicator } from "../../../../hooks/useExchausterIndicator
 
 const contentWidth = 231 - 12 - 4 - 5;
 
-const labels = [0, 1, 2, 3, 4, 5, 6];
+const labels = [2, 3, 4, 5, 6];
 
 interface OilPressureProps {
     exchauster: number;
@@ -70,6 +70,6 @@ function Divider() {
     return <Box height="12px" width="1px" bgcolor="#D9DADA" />;
 }
 
-const commonColor = "#B3B9B9";
+const commonColor = "#1dff34";
 const warningColor = "#FAB82E";
 const alarmColor = "#EB5835";
