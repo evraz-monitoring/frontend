@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { ConstantSignalMetrics } from "../lib/ConstantSignalMetrics";
 
 import { SignalKey } from "../models/Exchauster";
 import {
@@ -31,7 +32,7 @@ export const useExchausterIndicator = (
     const isWarning = React.useMemo(() => {
         if (typeof signalValue !== "number" || !state) return false;
 
-        const signalMinWarningValue = (state.metrics as any)[
+        const signalMinWarningValue = (ConstantSignalMetrics as any)[
             signalKey + "_warning_min"
         ];
         const signalMaxWarningValue = (state.metrics as any)[
@@ -52,12 +53,12 @@ export const useExchausterIndicator = (
     const isError = React.useMemo(() => {
         if (typeof signalValue !== "number" || !state) return false;
 
-        const signalMinAlarmValue = (state.metrics as any)[
+        const signalMinAlarmValue = (ConstantSignalMetrics as any)[
             signalKey + "_alarm_min"
         ];
         const signalMaxAlarmValue = (state.metrics as any)[
             signalKey + "_alarm_max"
-        ];
+        ];  
 
         if (
             typeof signalMinAlarmValue === "number" &&
