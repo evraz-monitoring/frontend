@@ -7,9 +7,6 @@ import { useNotifications } from "../hooks/useNotifications";
 import { getExchaustersState } from "../redux/store/exchausters/actions";
 export const Main = () => {
     const dispatch = useDispatch();
-    const { notifications } = useNotifications();
-
-    console.log(notifications);
 
     React.useEffect(() => {
         dispatch(getExchaustersState());

@@ -1,7 +1,10 @@
 import { Middleware } from "@reduxjs/toolkit";
 import React from "react";
 import { ExchaustersInfoListenerV2 } from "../../lib/IndicatorListener";
-import { transformGetExchaustersResponse } from "../saga/exchausters";
+import {
+    transformGetExchaustersResponse,
+    transformGetSocketsExchaustersResponse,
+} from "../saga/exchausters";
 import {
     addNotification,
     getExchaustersStateSuccess,
@@ -34,7 +37,7 @@ export const exchaustersMiddleware: Middleware =
                     if (Array.isArray(info)) {
                         dispatch(
                             setExchaustersState(
-                                transformGetExchaustersResponse(info)
+                                transformGetSocketsExchaustersResponse(info)
                             )
                         );
 
@@ -53,7 +56,6 @@ export const exchaustersMiddleware: Middleware =
                             );
                         }
                     } else {
-                        console.log(info);
                         dispatch(addNotification(info));
                     }
                 });

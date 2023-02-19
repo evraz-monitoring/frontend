@@ -66,6 +66,8 @@ function MetricItem(props: MetricItemProps) {
         props.exchauster,
         props.signalKey
     );
+
+    console.log(value);
     return (
         <Tooltip
             title={value && dayjs(value.ts * 1000).format("DD MMM HH:mm")}

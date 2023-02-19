@@ -33,9 +33,7 @@ export const createFakeWs = () => {
         client.on("message", (msg) => {
             if (typeof msg !== "string") return;
 
-            console.log("da");
             if (msg.startsWith("subscribe-exchausters")) {
-                console.log("sub");
                 const [_, exchausterId] = msg.split(":");
                 clientConnection.subscribe(exchausterId, (indicatorState) => {
                     // client.send(
@@ -46,7 +44,6 @@ export const createFakeWs = () => {
                     // );
 
                     setInterval(() => {
-                        console.log("send");
                         client.send(JSON.stringify(notificationData));
                     }, 5000);
                 });

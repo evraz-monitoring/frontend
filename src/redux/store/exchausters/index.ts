@@ -42,7 +42,15 @@ export const exchausterReducer = createReducer(initialState, (builder) => {
     });
 
     builder.addCase(setExchaustersState, (state, action) => {
-        state.exchaustersState = action.payload.state;
+        Object.keys(action.payload.state).forEach((number) => {
+            state.exchaustersState = {
+                ...state.exchaustersState,
+                [number]: {
+                    ...state.exchaustersState[+number],
+                    ...action.payload.state[+number],
+                },
+            };
+        });
     });
 
     builder.addCase(getHistoricalExchausterState, (state, action) => {
