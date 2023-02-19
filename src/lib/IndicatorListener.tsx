@@ -139,9 +139,11 @@ export class ExchaustersInfoListenerV2 {
 
     static instance = Date.now();
 
-    static sub: ((info: ApiExchausterInfo[]) => void) | undefined;
+    static sub:
+        | ((info: ApiExchausterInfo[] | Notification) => void)
+        | undefined;
 
-    static subscribe(cb: (info: ApiExchausterInfo[]) => void) {
+    static subscribe(cb: (info: ApiExchausterInfo[] | Notification) => void) {
         this.instance = Date.now();
 
         this.isListening = true;
@@ -207,7 +209,7 @@ export class ExchaustersInfoListenerV2 {
         console.log("Ws connection opened");
     }
     private static handleMessage(ev: MessageEvent<any>) {
-        const data = JSON.parse(ev.data) as ApiExchausterInfo[];
+        const data = JSON.parse(ev.data) as ApiExchausterInfo[] | Notification;
         this.sub?.(data);
     }
     private static handleError(e: Event) {

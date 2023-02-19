@@ -66,3 +66,8 @@ export const getHistoricalExchausterStateFailed = createAction(
         payload: { params },
     })
 );
+
+export const addNotification = createAction(
+    "add notification",
+    (notif: Notification) => ({ payload: { notif } })
+);

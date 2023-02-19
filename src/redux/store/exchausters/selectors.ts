@@ -7,6 +7,9 @@ export const getExchaustersState = (state: RootState) =>
 export const getExchaustersHistoricalStateById = (state: RootState) =>
     state.exchausters.exchausterHistoricalStateById;
 
+export const getNotifications = (state: RootState) =>
+    state.exchausters.notifications;
+
 export const getExchausterStateByNumber = createSelector(
     getExchaustersState,
     (state: RootState, number: number | undefined) => number,

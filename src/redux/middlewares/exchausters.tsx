@@ -3,6 +3,7 @@ import React from "react";
 import { ExchaustersInfoListenerV2 } from "../../lib/IndicatorListener";
 import { transformGetExchaustersResponse } from "../saga/exchausters";
 import {
+    addNotification,
     getExchaustersStateSuccess,
     getHistoricalExchausterState,
     setExchaustersState,
@@ -30,25 +31,30 @@ export const exchaustersMiddleware: Middleware =
         if (isSameAction(action, subscribeForExchaustersState)) {
             if (subsCountRef.current === 0) {
                 ExchaustersInfoListenerV2.subscribe((info) => {
-                    dispatch(
-                        setExchaustersState(
-                            transformGetExchaustersResponse(info)
-                        )
-                    );
-
-                    const isLive = getIsLive(getState());
-                    const exchauster = getCurrentExchauster(getState());
-
-                    if (isLive && typeof exchauster === "number") {
-                        const selectedKeys = getSelectedKeys(getState());
+                    if (Array.isArray(info)) {
                         dispatch(
-                            getHistoricalExchausterState({
-                                exchauster,
-                                fromDate: Date.now() - 60 * 60 * 1000,
-                                toDate: Date.now(),
-                                signalsKeys: selectedKeys,
-                            })
+                            setExchaustersState(
+                                transformGetExchaustersResponse(info)
+                            )
                         );
+
+                        const isLive = getIsLive(getState());
+                        const exchauster = getCurrentExchauster(getState());
+
+                        if (isLive && typeof exchauster === "number") {
+                            const selectedKeys = getSelectedKeys(getState());
+                            dispatch(
+                                getHistoricalExchausterState({
+                                    exchauster,
+                                    fromDate: Date.now() - 60 * 60 * 1000,
+                                    toDate: Date.now(),
+                                    signalsKeys: selectedKeys,
+                                })
+                            );
+                        }
+                    } else {
+                        console.log(info);
+                        dispatch(addNotification(info));
                     }
                 });
             }

@@ -4,6 +4,7 @@ import {
     HistoricalExchausterInfo,
 } from "../../../models/Exchauster";
 import {
+    addNotification,
     getExchaustersState,
     getExchaustersStateFailed,
     getExchaustersStateSuccess,
@@ -22,6 +23,8 @@ const initialState = {
         number,
         HistoricalExchausterInfo
     >,
+
+    notifications: [] as Notification[],
 };
 export const exchausterReducer = createReducer(initialState, (builder) => {
     builder.addCase(getExchaustersState, (state, action) => {
@@ -85,5 +88,9 @@ export const exchausterReducer = createReducer(initialState, (builder) => {
         delete state.exchausterHistoricalStateById[
             action.payload.params.exchauster
         ];
+    });
+
+    builder.addCase(addNotification, (state, action) => {
+        state.notifications.push(action.payload.notif);
     });
 });

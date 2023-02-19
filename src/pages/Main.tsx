@@ -3,9 +3,13 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Aglomachine } from "../components/Aglomachine";
 import { MainLegend } from "../components/MainLegend";
+import { useNotifications } from "../hooks/useNotifications";
 import { getExchaustersState } from "../redux/store/exchausters/actions";
 export const Main = () => {
     const dispatch = useDispatch();
+    const { notifications } = useNotifications();
+
+    console.log(notifications);
 
     React.useEffect(() => {
         dispatch(getExchaustersState());

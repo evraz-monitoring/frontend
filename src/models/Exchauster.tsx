@@ -10,7 +10,7 @@ export type ExchausterMetricsTemplate = {
 };
 
 export type ExchausterMetrics = {
-    [Key in SignalKey]: {value: number, ts: number};
+    [Key in SignalKey]: { value: number; ts: number };
 };
 
 export interface Exchauster {
@@ -26,4 +26,10 @@ export enum ExchausterHistoryTimeInterval {
     FIVE_MIN = "5min",
     FIFTEEN_MIN = "15min",
     ONE_HOUR = "1hour",
+}
+
+export interface Notification {
+    type: "alert" | "warning";
+    metric: SignalKey;
+    exhauster: number;
 }
