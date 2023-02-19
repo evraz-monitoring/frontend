@@ -60,9 +60,10 @@ export const Menu = ({
         <List
             sx={{
                 width: "100%",
-                height: "730px",
+                height: "680px",
+                overflowX: 'hidden',
                 bgcolor: "background.paper",
-                overflow: "overlay",
+                overflowY: "overlay",
                 "&::-webkit-scrollbar": {
                     width: "0.4em",
                 },

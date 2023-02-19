@@ -77,7 +77,7 @@ export const ChartPanel = () => {
                             </ListItemText>
                         </ListItemButton>
                     </ListItem>
-                    <Collapse in={menuOpened} timeout="auto">
+                    <Collapse in={menuOpened} timeout="auto" sx={{overflow: 'hidden'}}>
                         <Menu
                             checked={selectedKeys}
                             setChecked={handleSelect}

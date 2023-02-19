@@ -53,7 +53,7 @@ export const Chart: React.FC<ChartProps> = ({ checkedKeys }) => {
 
     return (
         <EChart
-            style={{ height: "100%" }}
+            style={{ height: "700px", width: '1430px' }}
             grid={{}}
             xAxis={{
                 data: xAxis,
