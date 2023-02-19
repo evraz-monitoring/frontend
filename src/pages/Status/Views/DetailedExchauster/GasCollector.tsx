@@ -47,9 +47,6 @@ function MetricItem(props: MetricItemProps) {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                bgcolor={
-                    isError ? "#EB5835" : isWarning ? "#FAB82E" : "#414F4F"
-                }
             >
                 <Box fontSize="12px" fontWeight="500" color="#ffffff">
                     {props.label}
@@ -57,11 +54,13 @@ function MetricItem(props: MetricItemProps) {
                 <Box
                     paddingX="6px"
                     paddingY="2px"
-                    bgcolor="#414F4F"
                     borderRadius="4px"
                     color="#ffffff"
                     fontSize="12px"
                     fontWeight="500"
+                    bgcolor={
+                        isError ? "#EB5835" : isWarning ? "#FAB82E" : "#414F4F"
+                    }
                 >
                     {value?.value?.toFixed(2)}
                 </Box>
