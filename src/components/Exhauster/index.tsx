@@ -97,7 +97,7 @@ export const Exhauster: React.FC<ExhausterType> = ({ id }) => {
                 <Box display="flex" flexDirection="column" gap="10px">
                     <RotorReplace />
 
-                    <Link to={`${ROUTER.status}/${id}`}>
+                    <Link to={`${ROUTER.status}/${id}?tab=schema`}>
                         <img src={exhausterLogo} />
                     </Link>
 

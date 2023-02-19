@@ -1,6 +1,6 @@
 import { Button, MenuItem, Select, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { Aglomachine } from "../../components/Aglomachine";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
@@ -84,7 +84,9 @@ const TabPanel = (props: TabPanelProps) => {
 };
 
 export const Status = () => {
-    const { search } = useLocation();
+    const { search, pathname } = useLocation();
+    const navigate = useNavigate();
+
     const params = new URLSearchParams(search.slice(1));
     const [value, setValue] = React.useState(() =>
         params.get("tab") === "chart" ? 1 : 0
@@ -92,8 +94,12 @@ export const Status = () => {
     const [mode, setMode] = useState<"period" | "segment">("period");
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
+        navigate({
+            pathname,
+            search: `?tab=${newValue ? "chart" : "schema"}`,
+        });
     };
-
+    
     return (
         <Box
             bgcolor="#F0F0F0"
