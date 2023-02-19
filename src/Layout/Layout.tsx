@@ -19,9 +19,7 @@ const Layout = () => {
                 {/* <Sidebar open={open} /> */}
                 <Main>
                     <Toolbar variant="dense" />
-                    <Container>
                         <Outlet />
-                    </Container>
                 </Main>
             </Box>
         </>
