@@ -1,6 +1,7 @@
 import { Config } from "../config";
 import { createFakeWs } from "../mirage/ws";
 import { ApiExchausterInfo } from "../models/ApiResponse";
+import { EvrazNotification } from "../models/Exchauster";
 
 export type ExchausterId = string;
 export type Subscription = (info: ApiExchausterInfo) => void;
@@ -140,10 +141,12 @@ export class ExchaustersInfoListenerV2 {
     static instance = Date.now();
 
     static sub:
-        | ((info: ApiExchausterInfo[] | Notification) => void)
+        | ((info: ApiExchausterInfo[] | EvrazNotification) => void)
         | undefined;
 
-    static subscribe(cb: (info: ApiExchausterInfo[] | Notification) => void) {
+    static subscribe(
+        cb: (info: ApiExchausterInfo[] | EvrazNotification) => void
+    ) {
         this.instance = Date.now();
 
         this.isListening = true;
@@ -209,7 +212,9 @@ export class ExchaustersInfoListenerV2 {
         console.log("Ws connection opened");
     }
     private static handleMessage(ev: MessageEvent<any>) {
-        const data = JSON.parse(ev.data) as ApiExchausterInfo[] | Notification;
+        const data = JSON.parse(ev.data) as
+            | ApiExchausterInfo[]
+            | EvrazNotification;
         this.sub?.(data);
     }
     private static handleError(e: Event) {

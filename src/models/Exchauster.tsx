@@ -28,7 +28,7 @@ export enum ExchausterHistoryTimeInterval {
     ONE_HOUR = "1hour",
 }
 
-export interface Notification {
+export interface EvrazNotification {
     type: "alert" | "warning";
     metric: SignalKey;
     exhauster: number;

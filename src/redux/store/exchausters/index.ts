@@ -1,5 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import {
+    EvrazNotification,
     Exchauster,
     HistoricalExchausterInfo,
 } from "../../../models/Exchauster";
@@ -24,7 +25,7 @@ const initialState = {
         HistoricalExchausterInfo
     >,
 
-    notifications: [] as Notification[],
+    notifications: [] as EvrazNotification[],
 };
 export const exchausterReducer = createReducer(initialState, (builder) => {
     builder.addCase(getExchaustersState, (state, action) => {

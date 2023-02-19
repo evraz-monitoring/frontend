@@ -1,4 +1,5 @@
 import {
+    EvrazNotification,
     Exchauster,
     ExchausterHistoryTimeInterval,
     HistoricalExchausterInfo,
@@ -69,5 +70,5 @@ export const getHistoricalExchausterStateFailed = createAction(
 
 export const addNotification = createAction(
     "add notification",
-    (notif: Notification) => ({ payload: { notif } })
+    (notif: EvrazNotification) => ({ payload: { notif } })
 );
