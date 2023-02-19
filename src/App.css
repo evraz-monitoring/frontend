@@ -3,13 +3,20 @@
     flex: auto;
 }
 @media (min-width: 1200px) {
-    .css-1oqqzyl-MuiContainer-root {
+    .MuiContainer-root {
         max-width: 100% !important;
     }
 }
-
+.rs-picker-default .rs-picker-toggle.rs-btn {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+.rs-picker-date .rs-picker-toggle.rs-btn .rs-picker-toggle-clean, .rs-picker-daterange .rs-picker-toggle.rs-btn .rs-picker-toggle-clean, .rs-picker-date .rs-picker-toggle.rs-btn .rs-picker-toggle-caret, .rs-picker-daterange .rs-picker-toggle.rs-btn .rs-picker-toggle-caret {
+    top: 2px !important;
+    right: 12px;
+}
 @media (min-width: 600px) {
-    .css-1oqqzyl-MuiContainer-root {
+    .MuiContainer-root {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }

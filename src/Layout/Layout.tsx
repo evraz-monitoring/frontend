@@ -1,6 +1,5 @@
 import { Header } from "./Header";
 import { Outlet } from "react-router-dom";
-import Period from "../components/Period";
 import { Sidebar } from "./Sidebar";
 import { Box, Container, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
@@ -20,9 +19,7 @@ const Layout = () => {
                 {/* <Sidebar open={open} /> */}
                 <Main>
                     <Toolbar variant="dense" />
-                    <Container>
                         <Outlet />
-                    </Container>
                 </Main>
             </Box>
         </>

@@ -218,13 +218,14 @@ export const Status = () => {
                         <div onClick={handlePressIsLive}>
                             <Box
                                 paddingX={"6px"}
-                                borderRadius="10px"
+                                borderRadius="4px"
                                 border={
                                     isLive
                                         ? "1px solid #FAB82E"
                                         : "1px solid #8D9595"
                                 }
                                 bgcolor={isLive ? "#FAB82E" : "#ffffff"}
+                                sx={{ cursor: "pointer" }}
                             >
                                 LIVE
                             </Box>
