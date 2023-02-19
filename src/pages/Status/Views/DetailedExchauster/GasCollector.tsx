@@ -34,13 +34,22 @@ interface MetricItemProps {
     signalKey: SignalKey;
 }
 function MetricItem(props: MetricItemProps) {
-    const { value } = useExchausterIndicator(props.exchauster, props.signalKey);
+    const { value, isError, isWarning } = useExchausterIndicator(
+        props.exchauster,
+        props.signalKey
+    );
     return (
-        <Tooltip title={value && dayjs(value.ts * 1000).format("DD MMM HH:mm")} placement='right'>
+        <Tooltip
+            title={value && dayjs(value.ts * 1000).format("DD MMM HH:mm")}
+            placement="right"
+        >
             <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
+                bgcolor={
+                    isError ? "#EB5835" : isWarning ? "#FAB82E" : "#414F4F"
+                }
             >
                 <Box fontSize="12px" fontWeight="500" color="#ffffff">
                     {props.label}

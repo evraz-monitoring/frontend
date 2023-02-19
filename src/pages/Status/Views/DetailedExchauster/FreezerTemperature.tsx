@@ -13,7 +13,10 @@ export const FreezerTemperature: React.FC<FreezerTemperatureProps> = ({
     exchauster,
     signalKey,
 }) => {
-    const { value } = useExchausterIndicator(exchauster, signalKey);
+    const { value, isError, isWarning } = useExchausterIndicator(
+        exchauster,
+        signalKey
+    );
 
     return (
         <Tooltip
@@ -23,7 +26,9 @@ export const FreezerTemperature: React.FC<FreezerTemperatureProps> = ({
             <Box
                 padding="6px"
                 borderRadius="4px"
-                bgcolor="#414F4F"
+                bgcolor={
+                    isError ? "#EB5835" : isWarning ? "#FAB82E" : "#414F4F"
+                }
                 color="#ffffff"
             >
                 {value?.value?.toFixed(2)} °С
