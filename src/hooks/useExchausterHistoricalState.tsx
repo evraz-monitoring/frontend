@@ -44,5 +44,12 @@ export const useExchausterHistoricalState = (exchauster: number) => {
         return res;
     }, [byTimestamp]);
 
-    return { data };
+    const sortedData = React.useMemo(() => {
+        const keys = Object.keys(data);
+        keys.sort((a, b) => (a > b ? 1 : -1));
+
+        return keys.map((key) => ({ data: data[+key], ts: +key }));
+    }, [data]);
+
+    return { data: sortedData };
 };

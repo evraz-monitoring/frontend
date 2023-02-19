@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
     LineChart,
     Line,
@@ -22,6 +23,10 @@ import {
     Legend,
     ResponsiveContainer,
 } from "recharts";
+import { setSelectedKeys } from "../../redux/store/status/actions";
+import { getSelectedKeys } from "../../redux/store/status/selectors";
+import { useAppSelector } from "../../redux/utils";
+import { Chart } from "../Chart";
 import {
     exchaustersState,
     wsData1,
@@ -35,17 +40,20 @@ import { DATA } from "./mock";
 import { getColor } from "./utils";
 
 export const ChartPanel = () => {
+    const dispatch = useDispatch();
+
     const [menuOpened, setMenuOpened] = useState(true);
-    const [checked, setChecked] = React.useState<string[]>([]);
-    const data = [
-        ...wsData1.filter((i) => i.exchauster === 3),
-        ...wsData2.filter((i) => i.exchauster === 3),
-        ...wsData3.filter((i) => i.exchauster === 3),
-        ...wsData4.filter((i) => i.exchauster === 3),
-        ...wsData5.filter((i) => i.exchauster === 3),
-    ];
+    const selectedKeys = useAppSelector(getSelectedKeys);
+
+    const handleSelect = React.useCallback(
+        (arg: string[]) => {
+            dispatch(setSelectedKeys(arg as any));
+        },
+        [dispatch]
+    );
+
     return (
-        <Box display="flex" justifyContent="space-between" width="100%">
+        <Box display="flex" width="100%">
             <Box
                 width="350px"
                 pr="20px"
@@ -70,12 +78,15 @@ export const ChartPanel = () => {
                         </ListItemButton>
                     </ListItem>
                     <Collapse in={menuOpened} timeout="auto">
-                        <Menu checked={checked} setChecked={setChecked} />
+                        <Menu
+                            checked={selectedKeys}
+                            setChecked={handleSelect}
+                        />
                     </Collapse>
                 </List>
             </Box>
-            <Box>
-                <Box display="flex" justifyContent="end">
+            <Box flex={1}>
+                {/* <Box display="flex" justifyContent="end">
                     <Select
                         defaultValue="60"
                         sx={{
@@ -91,8 +102,8 @@ export const ChartPanel = () => {
                         <MenuItem value="30">30 мин</MenuItem>
                         <MenuItem value="60">60 мин</MenuItem>
                     </Select>
-                </Box>
-                <LineChart
+                </Box> */}
+                {/* <LineChart
                     width={1500}
                     height={700}
                     data={data}
@@ -120,7 +131,10 @@ export const ChartPanel = () => {
                             />
                         );
                     })}
-                </LineChart>
+                </LineChart> */}
+                <Box flex={1} height="80%">
+                    <Chart checkedKeys={selectedKeys} />
+                </Box>
             </Box>
         </Box>
     );

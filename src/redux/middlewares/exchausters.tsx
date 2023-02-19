@@ -4,10 +4,16 @@ import { ExchaustersInfoListenerV2 } from "../../lib/IndicatorListener";
 import { transformGetExchaustersResponse } from "../saga/exchausters";
 import {
     getExchaustersStateSuccess,
+    getHistoricalExchausterState,
     setExchaustersState,
     subscribeForExchaustersState,
     unsubscribeForExchaustersState,
 } from "../store/exchausters/actions";
+import {
+    getCurrentExchauster,
+    getIsLive,
+    getSelectedKeys,
+} from "../store/status/selectors";
 import { isSameAction } from "../utils";
 
 const subsCountRef =
@@ -16,7 +22,7 @@ const subsCountRef =
 subsCountRef.current = 0;
 
 export const exchaustersMiddleware: Middleware =
-    ({ dispatch }) =>
+    ({ dispatch, getState }) =>
     (next) =>
     (action) => {
         next(action);
@@ -29,6 +35,21 @@ export const exchaustersMiddleware: Middleware =
                             transformGetExchaustersResponse(info)
                         )
                     );
+
+                    const isLive = getIsLive(getState());
+                    const exchauster = getCurrentExchauster(getState());
+
+                    if (isLive && typeof exchauster === "number") {
+                        const selectedKeys = getSelectedKeys(getState());
+                        dispatch(
+                            getHistoricalExchausterState({
+                                exchauster,
+                                fromDate: Date.now() - 60 * 60 * 1000,
+                                toDate: Date.now(),
+                                signalsKeys: selectedKeys,
+                            })
+                        );
+                    }
                 });
             }
             subsCountRef.current++;

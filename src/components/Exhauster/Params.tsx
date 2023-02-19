@@ -20,7 +20,6 @@ type ParamsType = {
 
 export const Params: React.FC<ParamsType> = ({ id }) => {
     const { items } = useParams(id);
-    console.log('id',id)
     const badItems = useMemo(() => {
         return items.filter((i) =>
             i.data.some((el) => el.color === "red" || el.color === "yellow")

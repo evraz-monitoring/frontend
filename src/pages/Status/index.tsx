@@ -9,6 +9,24 @@ import Box from "@mui/material/Box";
 import { ChartPanel } from "../../components/ChartPanel";
 import { DateRangePicker } from "rsuite";
 import { DetailedExchauster } from "./Views/DetailedExchauster";
+import { useAppSelector } from "../../redux/utils";
+import {
+    getCurrentExchauster,
+    getDateRange,
+    getIsLive,
+    getSelectedKeys,
+} from "../../redux/store/status/selectors";
+import { useDispatch } from "react-redux";
+import {
+    resetState,
+    setCurrentExchauster,
+    setDateRange,
+    toggleIsLive,
+} from "../../redux/store/status/actions";
+import {
+    getExchaustersState,
+    getHistoricalExchausterState,
+} from "../../redux/store/exchausters/actions";
 
 interface StyledTabsProps {
     children?: React.ReactNode;
@@ -87,11 +105,25 @@ export const Status = () => {
     const { search, pathname } = useLocation();
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
     const params = new URLSearchParams(search.slice(1));
+    const { id } = useParams();
+
+    React.useEffect(() => {
+        if (typeof id !== "string") return;
+
+        dispatch(setCurrentExchauster(+id));
+        dispatch(getExchaustersState());
+    }, [dispatch, id]);
+
+    const exchauster = useAppSelector(getCurrentExchauster);
+    const isLive = useAppSelector(getIsLive);
+    const dateRange = useAppSelector(getDateRange);
+    const selectedKeys = useAppSelector(getSelectedKeys);
+
     const [value, setValue] = React.useState(() =>
         params.get("tab") === "chart" ? 1 : 0
     );
-    const [mode, setMode] = useState<"period" | "segment">("period");
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
         navigate({
@@ -99,7 +131,45 @@ export const Status = () => {
             search: `?tab=${newValue ? "chart" : "schema"}`,
         });
     };
-    
+
+    const handleSelectDateRange = (fromDate: number, toDate: number) => {
+        dispatch(setDateRange(fromDate, toDate));
+    };
+
+    const handlePressIsLive = () => {
+        dispatch(toggleIsLive());
+    };
+
+    React.useEffect(() => {
+        if (typeof exchauster !== "number") return;
+
+        if (isLive) {
+            dispatch(
+                getHistoricalExchausterState({
+                    exchauster,
+                    fromDate: Date.now() - 60 * 60 * 1000,
+                    toDate: Date.now(),
+                    signalsKeys: selectedKeys,
+                })
+            );
+        } else if (dateRange) {
+            dispatch(
+                getHistoricalExchausterState({
+                    exchauster,
+                    fromDate: dateRange[0],
+                    toDate: dateRange[1],
+                    signalsKeys: selectedKeys,
+                })
+            );
+        }
+    }, [isLive, exchauster, dateRange, selectedKeys, dispatch]);
+
+    React.useEffect(() => {
+        return () => {
+            dispatch(resetState());
+        };
+    }, [dispatch]);
+
     return (
         <Box
             bgcolor="#F0F0F0"
@@ -117,48 +187,48 @@ export const Status = () => {
                         bgcolor="#FFFFFF"
                         display="flex"
                         alignItems="center"
+                        flexDirection="row"
                         gap="10px"
                         px="6px"
                         borderRadius="4px"
                     >
-                        <Select
-                            sx={{
-                                height: "26px",
-                                p: "0",
-                                bgcolor: "#FAB82E",
-                                "& fieldset": {
-                                    border: "unset",
-                                },
-                            }}
-                            value={mode}
-                            onChange={({ target }) =>
-                                setMode(target.value as "period" | "segment")
-                            }
-                        >
-                            <MenuItem value={"period"}>
-                                Временной диапозон
-                            </MenuItem>
-                            <MenuItem value={"segment"}>
-                                Отрезок времени
-                            </MenuItem>
-                        </Select>
-
                         <DateRangePicker
                             className="datePicker"
                             style={{
                                 borderRadius: "4px",
                             }}
-                            format="yyyy-MM-dd HH:mm:ss"
-                            defaultValue={[
-                                new Date(Date.now() - 3600000),
-                                new Date(Date.now()),
-                            ]}
-                            onChange={console.log}
-                            defaultCalendarValue={[
-                                new Date("2022-02-01 00:00:00"),
-                                new Date("2022-05-01 23:59:59"),
-                            ]}
+                            format="yyyy-MM-dd"
+                            onChange={(range) =>
+                                range &&
+                                handleSelectDateRange(
+                                    range[0].getTime(),
+                                    range[1].getTime()
+                                )
+                            }
+                            value={
+                                dateRange
+                                    ? [
+                                          new Date(dateRange[0]),
+                                          new Date(dateRange[1]),
+                                      ]
+                                    : null
+                            }
                         />
+
+                        <div onClick={handlePressIsLive}>
+                            <Box
+                                paddingX={"6px"}
+                                borderRadius="10px"
+                                border={
+                                    isLive
+                                        ? "1px solid #FAB82E"
+                                        : "1px solid #8D9595"
+                                }
+                                bgcolor={isLive ? "#FAB82E" : "#ffffff"}
+                            >
+                                LIVE
+                            </Box>
+                        </div>
                     </Box>
                 )}
                 <StyledTabs
@@ -211,3 +281,5 @@ export const Status = () => {
         </Box>
     );
 };
+
+function LiveButton() {}

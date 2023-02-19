@@ -52,30 +52,37 @@ export const exchausterReducer = createReducer(initialState, (builder) => {
             action.payload.params.exchauster
         ];
 
-        const additionalState = Object.entries(
-            action.payload.params.historyData
-        ).reduce((acc, [timestamp, exchausterInfo]) => {
-            acc[+timestamp] = {
-                ...(state.exchausterHistoricalStateById[
-                    action.payload.params.exchauster
-                ] || {})[+timestamp],
-                ...exchausterInfo,
-            };
-
-            return acc;
-        }, {} as HistoricalExchausterInfo);
-
         state.exchausterHistoricalStateById[action.payload.params.exchauster] =
-            {
-                ...state.exchausterHistoricalStateById[
-                    action.payload.params.exchauster
-                ],
-                ...additionalState,
-            };
+            action.payload.params.historyData;
+
+        // const additionalState = Object.entries(
+        //     action.payload.params.historyData
+        // ).reduce((acc, [timestamp, exchausterInfo]) => {
+        //     acc[+timestamp] = {
+        //         ...(state.exchausterHistoricalStateById[
+        //             action.payload.params.exchauster
+        //         ] || {})[+timestamp],
+        //         ...exchausterInfo,
+        //     };
+
+        //     return acc;
+        // }, {} as HistoricalExchausterInfo);
+
+        // state.exchausterHistoricalStateById[action.payload.params.exchauster] =
+        //     {
+        //         ...state.exchausterHistoricalStateById[
+        //             action.payload.params.exchauster
+        //         ],
+        //         ...additionalState,
+        //     };
     });
 
     builder.addCase(getHistoricalExchausterStateFailed, (state, action) => {
         delete state.isLoadingExchausterHistoricalById[
+            action.payload.params.exchauster
+        ];
+
+        delete state.exchausterHistoricalStateById[
             action.payload.params.exchauster
         ];
     });
