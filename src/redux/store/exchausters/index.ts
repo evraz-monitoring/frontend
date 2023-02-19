@@ -93,5 +93,6 @@ export const exchausterReducer = createReducer(initialState, (builder) => {
 
     builder.addCase(addNotification, (state, action) => {
         state.notifications.push(action.payload.notif);
+        state.notifications = state.notifications.slice(-30);
     });
 });
