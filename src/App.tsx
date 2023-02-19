@@ -9,10 +9,12 @@ import { Config } from "./config";
 import { createFakeWs, createFakeWsV2 } from "./mirage/ws";
 import { createFakeApi } from "./mirage";
 import "rsuite/styles/index.less"; // or 'rsuite/dist/rsuite.min.css'
+import axios from "axios";
 
 Config.isFakeWs && createFakeWsV2();
 Config.isFakeApi && createFakeApi();
 
+axios.defaults.baseURL = "https://evraz.rubles.lol/";
 function App() {
     return (
         <Routes>

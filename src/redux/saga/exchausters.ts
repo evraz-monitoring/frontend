@@ -1,6 +1,7 @@
 import { all, call, put, takeEvery, takeLeading } from "typed-redux-saga";
 import { requestApi } from "../../lib/Api";
 import { Exchauster, HistoricalExchausterInfo } from "../../models/Exchauster";
+import dayjs from "dayjs";
 import {
     getExchaustersState,
     getExchaustersStateFailed,
@@ -13,7 +14,7 @@ import {
 function* getExchaustersStateSaga() {
     try {
         const { data } = yield* call(() =>
-            requestApi({ url: "/exchausters-state", method: "GET" })
+            requestApi({ url: "/api/actual_indicators", method: "GET" })
         );
 
         yield put(
@@ -30,11 +31,15 @@ function* getHistoricalExchausterStateSaga(
     try {
         const { data } = yield* call(() =>
             requestApi({
-                url: `/exchausters-history?exchauster=${
+                url: `api/historical_indicators?exhauster=${
                     action.payload.params.exchauster
-                }&fromDate=${action.payload.params.fromDate}&limit=${
-                    action.payload.params.limit
-                }&signalKeys=${action.payload.params.signalsKeys.join(",")}`,
+                }&dateFrom=${dayjs(
+                    action.payload.params.fromDate
+                ).toISOString()}&dateTo=${dayjs(
+                    action.payload.params.toDate
+                ).toISOString()}&metrics=${action.payload.params.signalsKeys.join(
+                    ","
+                )}`,
                 method: "GET",
             })
         );
@@ -46,6 +51,7 @@ function* getHistoricalExchausterStateSaga(
             })
         );
     } catch (e: any) {
+        console.log(e.message);
         yield put(
             getHistoricalExchausterStateFailed({
                 ...action.payload.params,

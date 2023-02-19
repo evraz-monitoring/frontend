@@ -3,9 +3,14 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Aglomachine } from "../components/Aglomachine";
 import { MainLegend } from "../components/MainLegend";
-import { useExchausterHistoricalState } from "../hooks/useExchausterHistoricalState";
-import { getHistoricalExchausterState } from "../redux/store/exchausters/actions";
+import { getExchaustersState } from "../redux/store/exchausters/actions";
 export const Main = () => {
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        dispatch(getExchaustersState());
+    }, [dispatch]);
+
     return (
         <>
             <Box>

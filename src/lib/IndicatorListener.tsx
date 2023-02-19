@@ -180,7 +180,7 @@ export class ExchaustersInfoListenerV2 {
             console.warn("Connection already created");
             return;
         }
-        this.ws = new WebSocket("ws://localhost:40510/test");
+        this.ws = new WebSocket("wss://evraz.rubles.lol/metrics");
 
         this.ws.onopen = this.handleOpen.bind(this);
         this.ws.onmessage = this.handleMessage.bind(this);

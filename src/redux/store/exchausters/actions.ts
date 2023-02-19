@@ -34,7 +34,7 @@ interface GetHistoricalExchausterStateParams {
     exchauster: number;
 
     fromDate: number;
-    limit: number;
+    toDate: number;
 
     signalsKeys: SignalKey[];
 }
