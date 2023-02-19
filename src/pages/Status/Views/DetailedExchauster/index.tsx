@@ -144,7 +144,7 @@ export const DetailedExchauster = () => {
                 <OilSystem exchauster={+id} />
             </AbsoluteBox>
 
-            <AbsoluteBox top={179} left={74}>
+            <AbsoluteBox top={195} left={64}>
                 <GasCollector />
             </AbsoluteBox>
 

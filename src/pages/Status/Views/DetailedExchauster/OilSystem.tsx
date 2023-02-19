@@ -2,9 +2,9 @@ import { Box } from "@mui/material";
 import React from "react";
 import { useExchausterIndicator } from "../../../../hooks/useExchausterIndicator";
 
-const contentWidth = 232 - 20 - 5 - 4;
+const contentWidth = 208;
 
-const labels = [20, 40, 60, 80, 100];
+const labels = [0, 20, 40, 60, 80, 100];
 interface OilSystemProps {
     exchauster: number;
 }
@@ -64,14 +64,14 @@ export const OilSystem: React.FC<OilSystemProps> = ({ exchauster }) => {
                     top={0}
                     left={0}
                     height={31}
-                    width={5 + contentWidth * Math.min((value || 0) / 100, 1)}
+                    width={contentWidth / 100 * (value || 1)}
                     bgcolor={contentColor}
                     // zIndex={-1}
                 />
 
                 <Box position="absolute" top={0} left={0}>
-                    <Box>{value?.toFixed(2)}</Box>
-                    <Box>УРОВЕНЬ МАСЛА, %</Box>
+                    <Box ml='15px' fontWeight='500' fontSize='13px' lineHeight='15px'>{value?.toFixed(2)}</Box>
+                    <Box ml='15px' fontWeight='375' fontSize='10px'>УРОВЕНЬ МАСЛА, %</Box>
                 </Box>
             </Box>
         </Box>

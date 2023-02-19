@@ -11,7 +11,7 @@ export const GasCollector = () => {
     }
 
     return (
-        <Box width="159px">
+        <Box width="179px" display='flex' flexDirection='column' gap='3px'>
             <MetricItem
                 exchauster={+id}
                 label="Температура газа, °С"
@@ -36,13 +36,17 @@ function MetricItem(props: MetricItemProps) {
     const { value } = useExchausterIndicator(props.exchauster, props.signalKey);
     return (
         <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box>{props.label}</Box>
+            <Box fontSize="12px" fontWeight="500" color="#ffffff">
+                {props.label}
+            </Box>
             <Box
                 paddingX="6px"
                 paddingY="2px"
                 bgcolor="#414F4F"
                 borderRadius="4px"
                 color="#ffffff"
+                fontSize="12px"
+                fontWeight="500"
             >
                 {value?.toFixed(2)}
             </Box>

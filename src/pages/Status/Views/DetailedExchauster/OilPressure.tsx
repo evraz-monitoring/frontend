@@ -27,6 +27,7 @@ export const OilPressure: React.FC<OilPressureProps> = ({ exchauster }) => {
             padding="6px"
             bgcolor="#E8EAEA"
             border="2px solid #8D9595"
+            borderRadius='2px'
         >
             <Box
                 display="flex"
@@ -57,8 +58,8 @@ export const OilPressure: React.FC<OilPressureProps> = ({ exchauster }) => {
                 />
 
                 <Box position="absolute" top={0} left={0}>
-                    <Box>{value?.toFixed(2)}</Box>
-                    <Box>Давление масла, кг/см2</Box>
+                    <Box ml='15px' fontWeight='500' fontSize='13px' lineHeight='15px'>{value?.toFixed(2)}</Box>
+                    <Box ml='15px' fontWeight='375' fontSize='10px'>ДАВЛЕНИЕ МАСЛА, кг/см²</Box>
                 </Box>
             </Box>
         </Box>

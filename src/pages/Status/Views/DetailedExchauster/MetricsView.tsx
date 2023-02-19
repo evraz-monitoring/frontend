@@ -38,15 +38,16 @@ export const MetricsView: React.FC<MetricsViewProps> = ({
             >
                 {title}
             </Box>
-
-            {indicators.map((indicator) => (
-                <MetricViewIndicator
-                    key={indicator.key}
-                    label={indicator.label}
-                    exchauster={+id}
-                    signalKey={indicator.key}
-                />
-            ))}
+            <Box display="flex" flexDirection="column" gap="4px">
+                {indicators.map((indicator) => (
+                    <MetricViewIndicator
+                        key={indicator.key}
+                        label={indicator.label}
+                        exchauster={+id}
+                        signalKey={indicator.key}
+                    />
+                ))}
+            </Box>
         </div>
     );
 };
@@ -76,8 +77,8 @@ function MetricViewIndicator(props: MetricViewIndicatorProps) {
             paddingX="5px"
             bgcolor={containerColor}
         >
-            <Box color={"#ffffff"}>{props.label}</Box>
-            <Box color={"#ffffff"}>{value?.toFixed(2)}</Box>
+            <Box color={"#ffffff"} fontSize='13px' fontWeight='375'>{props.label}</Box>
+            <Box color={"#ffffff"} fontSize='13px' fontWeight='500'>{value?.toFixed(2)}</Box>
         </Box>
     );
 }

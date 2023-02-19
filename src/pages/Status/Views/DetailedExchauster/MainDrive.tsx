@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useExchausterIndicator } from "../../../../hooks/useExchausterIndicator";
 import { SignalKey } from "../../../../models/Exchauster";
@@ -25,31 +25,32 @@ export const MainDrive = () => {
                 alignItems="center"
                 justifyContent="center"
                 bgcolor="#FFFFFF50"
-                marginBottom="12px"
+                marginBottom="6px"
             >
                 Главный привод
             </Box>
-
-            <MetricItem
-                exchauster={+id}
-                label="Ток, А"
-                signalKey="main_drive_rotor_current"
-            />
-            <MetricItem
-                exchauster={+id}
-                label="Ток двигателя, А"
-                signalKey="main_drive_stator_current"
-            />
-            <MetricItem
-                exchauster={+id}
-                label="Напряжение ротера, кВт"
-                signalKey="main_drive_rotor_voltage"
-            />
-            <MetricItem
-                exchauster={+id}
-                label="Напряжение статера, кВт"
-                signalKey="main_drive_stator_voltage"
-            />
+            <Box display="flex" flexDirection="column" gap="3px">
+                <MetricItem
+                    exchauster={+id}
+                    label="Ток, А"
+                    signalKey="main_drive_rotor_current"
+                />
+                <MetricItem
+                    exchauster={+id}
+                    label="Ток двигателя, А"
+                    signalKey="main_drive_stator_current"
+                />
+                <MetricItem
+                    exchauster={+id}
+                    label="Напряжение ротера, кВт"
+                    signalKey="main_drive_rotor_voltage"
+                />
+                <MetricItem
+                    exchauster={+id}
+                    label="Напряжение статера, кВт"
+                    signalKey="main_drive_stator_voltage"
+                />
+            </Box>
         </Box>
     );
 };
@@ -63,13 +64,19 @@ function MetricItem(props: MetricItemProps) {
     const { value } = useExchausterIndicator(props.exchauster, props.signalKey);
     return (
         <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box>{props.label}</Box>
+            <Box>
+                <Typography fontWeight="500" fontSize="12px" color="#000000">
+                    {props.label}
+                </Typography>
+            </Box>
             <Box
-                paddingX="6px"
-                paddingY="2px"
+                px="6px"
+                py="2px"
                 bgcolor="#414F4F"
                 borderRadius="4px"
                 color="#ffffff"
+                fontSize="12px"
+                fontWeight="500"
             >
                 {value?.toFixed(2)}
             </Box>
