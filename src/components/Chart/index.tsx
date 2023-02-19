@@ -70,9 +70,9 @@ export const Chart: React.FC<ChartProps> = ({ checkedKeys }) => {
                 formatter: (params: any[]) => {
                     return `${params[0].axisValue}<br />${params.map(
                         (param) =>
-                            `<br />${signalsMapping[id][param.seriesName]}: ${
-                                param.value
-                            }`
+                            `<br />${
+                                (signalsMapping as any)[id][param.seriesName]
+                            }: ${param.value}`
                     )}`;
                 },
             }}
